@@ -10,8 +10,14 @@ const OrderOptions: React.FC = () => {
   const screenSizeDownMd = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minWidth: "250px" }}>
-      <Box sx={{ marginLeft: "10px" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minWidth: "250px",
+      }}
+    >
+      <Box sx={{ marginLeft: "auto" }}>
         <Link
           sx={{
             display: "flex",

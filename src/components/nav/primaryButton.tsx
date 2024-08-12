@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { SvgIconComponent } from "@mui/icons-material";
 
 interface PrimaryButtonProps {
-  name: string;
+  name?: string;
   Icon: SvgIconComponent; // Type for Material-UI icons
 }
 
@@ -28,7 +28,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ name, Icon }) => {
       }}
     >
       <Icon sx={{ marginRight: "5px", fontSize: "1.1rem", color: "#00ccbc" }} />
-      {name}
+      {name && name}
     </Button>
   );
 };

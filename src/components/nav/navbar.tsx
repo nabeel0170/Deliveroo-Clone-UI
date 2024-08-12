@@ -4,15 +4,12 @@ import PrimaryButton from "./primaryButton";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import HomeIcon from "@mui/icons-material/Home";
 import { useTheme } from "@mui/material/styles";
-import { useEffect, useState } from "react";
+
 const NavBar: React.FC = () => {
   const theme = useTheme();
-  const screenSizeDownMd = useMediaQuery(theme.breakpoints.down("md"));
-  const [signUpButton, setSignUpButton] = useState(true);
+  const screenSizeDownMd = useMediaQuery(theme.breakpoints.up("md"));
+  const screenSizeDownSm = useMediaQuery(theme.breakpoints.up("sm"));
 
-  useEffect(() => {
-    setSignUpButton(!screenSizeDownMd);
-  }, [screenSizeDownMd]);
   return (
     <header>
       <AppBar
@@ -35,10 +32,14 @@ const NavBar: React.FC = () => {
             <NavSearchBar />
           </Box>
           <Toolbar sx={{ gap: 1 }}>
-            {signUpButton && (
+            {screenSizeDownMd && (
               <PrimaryButton name={"Sign Up or log in"} Icon={HomeIcon} />
             )}
-            <PrimaryButton name={"Account"} Icon={PersonOutlineIcon} />
+            {!screenSizeDownSm ? (
+              <PrimaryButton Icon={PersonOutlineIcon} />
+            ) : (
+              <PrimaryButton name={"Account"} Icon={PersonOutlineIcon} />
+            )}
           </Toolbar>
         </Toolbar>
       </AppBar>
