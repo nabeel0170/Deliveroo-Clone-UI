@@ -65,20 +65,28 @@ const FooterSection: React.FC<FooterSectionProps> = ({
             listStyle: "none",
             padding: 0,
             margin: 0,
-            alignItems: "start",
+            alignItems: "flex-start",
           }}
         >
           {image.map((src, index) => (
             <a href="/" key={index}>
-              <img
-                src={src}
-                alt={title}
+              <Box
                 style={{
-                  maxWidth: "135px",
-                  display: "block",
-                  padding: 0,
+                  display: "flex",
+                  maxWidth: "140px",
+                  maxHeight: "40px",
+                  marginBottom: "10px",
                 }}
-              />
+              >
+                <img
+                  src={src}
+                  alt={title}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              </Box>
             </a>
           ))}
         </ul>
