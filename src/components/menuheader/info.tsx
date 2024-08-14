@@ -22,7 +22,6 @@ const Info: React.FC = () => {
               fontSize: "1rem",
             }}
           />
-
           <Box>
             <Box
               sx={{

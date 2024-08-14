@@ -17,7 +17,14 @@ const OrderOptions: React.FC = () => {
         minWidth: "250px",
       }}
     >
-      <Box sx={{ marginLeft: "auto" }}>
+      <Box
+        sx={{
+          marginLeft: "5px",
+          "@media (min-width:900px)": {
+            marginLeft: "auto",
+          },
+        }}
+      >
         <Link
           sx={{
             display: "flex",

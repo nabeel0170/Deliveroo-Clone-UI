@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Link,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import BackButton from "./backButton";
 
 import MenuContent from "./menuContent";
@@ -18,9 +11,8 @@ const TopMenu: React.FC = () => {
         sx={{
           marginLeft: "50px",
           marginRight: "50px",
-
+          minWidth: "fit-content",
           flexGrow: 1,
-
           display: "flex",
           flexDirection: "column",
           [theme.breakpoints.down("sm")]: {

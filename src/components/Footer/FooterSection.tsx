@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Link, Typography } from "@mui/material";
-import styled from "@emotion/styled";
+import { Box, Typography } from "@mui/material";
+import styled from "styled-components";
 
 interface FooterSectionProps {
   title: string;
@@ -23,37 +23,36 @@ const StyledUl = styled.ul`
     font-size: 0.65rem;
   }
 `;
+const StyledBox = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  background: #404a4a;
+  max-width: 220px;
+  width: 220px;
 
-const FooterSection: React.FC<FooterSectionProps> = ({
-  title,
-  listItem = [],
-  image = [],
-}) => {
+  padding: 20px;
+  min-height: 320px;
+  margin: 5px;
+  flex-grow: 1;
+  box-sizing: border-box;
+  flex-shrink: 1;
+
+  @media (max-width: 800px) {
+    max-width: 350px;
+    width: 240px;
+  }
+`;
+
+const FooterSection: React.FC<FooterSectionProps> = ({ title, listItem, image }) => {
   return (
-    <Box
-      sx={{
-        background: "#404a4a",
-        maxWidth: "190px",
-        width: "190px",
-        padding: "10px",
-        maxHeight: "350px",
-        height: "100%",
-        marginTop: "20px",
-        marginBottom: "20px",
-        marginLeft: "10px",
-        marginRight: "10px",
-      }}
-    >
-      <Typography
-        color={"white"}
-        sx={{ fontSize: "0.95rem", fontWeight: "bold" }}
-      >
+    <StyledBox>
+      <Typography color={"white"} sx={{ fontSize: "0.95rem", fontWeight: "bold" }}>
         {title}
       </Typography>
       {listItem && listItem.length > 0 && (
         <StyledUl>
           {listItem.map((item, index) => (
-            <li key={index} style={{}}>
+            <li key={index}>
               <a href="/">{item}</a>
             </li>
           ))}
@@ -71,11 +70,12 @@ const FooterSection: React.FC<FooterSectionProps> = ({
           {image.map((src, index) => (
             <a href="/" key={index}>
               <Box
-                style={{
+                sx={{
                   display: "flex",
                   maxWidth: "140px",
                   maxHeight: "40px",
                   marginBottom: "10px",
+                  boxSizing: "border-box",
                 }}
               >
                 <img
@@ -91,7 +91,7 @@ const FooterSection: React.FC<FooterSectionProps> = ({
           ))}
         </ul>
       )}
-    </Box>
+    </StyledBox>
   );
 };
 

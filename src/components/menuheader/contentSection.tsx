@@ -55,8 +55,7 @@ const ContentSection: React.FC = () => {
               Chicken &#183; Salads &#183; Healthy
             </Typography>
             <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
-              0.20 miles away &#183; Opens at 11:00 &#183; £7.00 minimum &#183;
-              £0.79 delivery
+              0.20 miles away &#183; Opens at 11:00 &#183; £7.00 minimum &#183; £0.79 delivery
             </Typography>
           </Box>
           <Info />

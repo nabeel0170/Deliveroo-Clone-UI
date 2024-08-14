@@ -21,20 +21,14 @@ const NavBar: React.FC = () => {
         <Toolbar sx={{ justifyContent: "space-between", gap: 1 }}>
           <Box sx={{ display: "flex" }}>
             <a href="/">
-              <img
-                src="./logo/deliveroo-logo.png"
-                alt="Deliveroo Logo"
-                style={{ height: "30px" }}
-              />
+              <img src="./logo/deliveroo-logo.png" alt="Deliveroo Logo" style={{ height: "30px" }} />
             </a>
           </Box>
           <Box sx={{ maxWidth: "500px", width: "500px" }}>
             <NavSearchBar />
           </Box>
           <Toolbar sx={{ gap: 1 }}>
-            {screenSizeDownMd && (
-              <PrimaryButton name={"Sign Up or log in"} Icon={HomeIcon} />
-            )}
+            {screenSizeDownMd && <PrimaryButton name={"Sign Up or log in"} Icon={HomeIcon} />}
             {!screenSizeDownSm ? (
               <PrimaryButton Icon={PersonOutlineIcon} />
             ) : (

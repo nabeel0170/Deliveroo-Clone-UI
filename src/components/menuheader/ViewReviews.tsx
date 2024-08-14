@@ -29,10 +29,7 @@ const ViewReviews: React.FC = () => {
                 width: "fit-content",
               }}
             >
-              <Typography
-                variant="body1"
-                sx={{ fontSize: "0.9rem", color: "#4d7c1b" }}
-              >
+              <Typography variant="body1" sx={{ fontSize: "0.9rem", color: "#4d7c1b" }}>
                 4.7 Excellent
               </Typography>
               <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
