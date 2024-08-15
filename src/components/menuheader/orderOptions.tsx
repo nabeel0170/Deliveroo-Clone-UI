@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Link } from "@mui/material";
-import PrimaryButton from "../nav/primaryButton";
+import PrimaryButton from "../commons/primaryButton";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
@@ -31,13 +31,13 @@ const OrderOptions: React.FC = () => {
             alignItems: "center",
             color: "inherit",
             textDecoration: "none",
-            fontSize: "0.75rem",
+            fontSize: "16px",
           }}
           href="/"
         >
           <img
             src="./icons/delivery.png"
-            style={{ height: "20px", marginRight: "10px" }}
+            style={{ height: "24px", marginRight: "10px" }}
             alt="Delivery"
           />
           Deliver from 11:00 - 11:30

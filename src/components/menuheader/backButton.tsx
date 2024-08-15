@@ -7,6 +7,7 @@ const BackButton: React.FC = () => {
     <Button
       sx={{
         paddingLeft: "0",
+        paddingTop: "16px",
         color: "#00ccbc",
         gap: 2,
         fontSize: "0.75rem",
@@ -17,8 +18,8 @@ const BackButton: React.FC = () => {
         },
       }}
     >
-      <KeyboardBackspaceIcon sx={{ fontSize: "1.2rem" }} />
-      Back
+      <KeyboardBackspaceIcon sx={{ fontSize: "24px" }} />
+      <span style={{ fontSize: "16px" }}>Back</span>
     </Button>
   );
 };

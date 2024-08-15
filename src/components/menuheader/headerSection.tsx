@@ -1,10 +1,11 @@
 import React from "react";
 import { Box } from "@mui/material";
-import PrimaryButton from "../nav/primaryButton";
+import PrimaryButton from "../commons/primaryButton";
 import RoundBackButton from "./roundBackButton";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import StyledOrderButton from "./StyledOrderButton";
 
 const HeaderSection: React.FC = () => {
   const theme = useTheme();
@@ -22,15 +23,12 @@ const HeaderSection: React.FC = () => {
         backgroundPosition: "center",
         backgroundSize: "cover",
         minHeight: "220px",
-        maxHeight: "230px",
-        minWidth: "150px",
-        maxWidth: "400px",
+        maxHeight: "299px",
+        minWidth: screenSizeDownSm ? "100%" : "150px",
+        maxWidth: screenSizeDownSm ? "100%" : "532px",
         width: "100%",
+        height: "299px",
         position: "relative",
-        "@media (max-width: 540px)": {
-          maxWidth: "100%",
-          width: "100%",
-        },
       }}
     >
       <Box
@@ -40,12 +38,12 @@ const HeaderSection: React.FC = () => {
           left: 0,
           right: 0,
           display: "flex",
-          justifyContent: "center",
+          justifyContent: screenSizeDownSm ? "flex-end" : "center",
           padding: "10px",
         }}
       >
         {screenSizeDownMd && (
-          <PrimaryButton
+          <StyledOrderButton
             name={"Start Group Order"}
             Icon={PeopleAltOutlinedIcon}
           />

@@ -17,9 +17,9 @@ const Info: React.FC = () => {
         >
           <InfoIcon
             sx={{
-              marginRight: "5px",
+              marginRight: "10px",
               borderRadius: "13px",
-              fontSize: "1rem",
+              fontSize: "24px",
             }}
           />
           <Box>
@@ -28,10 +28,10 @@ const Info: React.FC = () => {
                 width: "fit-content",
               }}
             >
-              <Typography variant="body1" sx={{ fontSize: "0.9rem" }}>
+              <Typography variant="body1" sx={{ fontSize: "16px" }}>
                 Info
               </Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
+              <Typography variant="body2" sx={{ fontSize: "14px" }}>
                 Map, allergens and hygiene rating
               </Typography>
             </Box>
@@ -45,8 +45,9 @@ const Info: React.FC = () => {
           >
             <ArrowForwardIosIcon
               sx={{
-                fontSize: "1rem",
+                fontSize: "18px",
                 color: "#00ccbc",
+                marginLeft: "5px",
               }}
             />
           </Box>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const NavSearchBar: React.FC = () => {
   const theme = useTheme();
-  const screenSizeDownMd = useMediaQuery(theme.breakpoints.down("sm"));
+  const screenSizeDownMd = useMediaQuery(theme.breakpoints.down("md"));
   const [searchBarState, setSearchBarState] = useState(true);
 
   useEffect(() => {
@@ -25,6 +25,12 @@ const NavSearchBar: React.FC = () => {
     },
     marginLeft: 0,
     border: "#dadce0 0.5px solid",
+    height: "46px",
+    maxWidth: "650px",
+    width: "100%",
+    flexGrow: 1,
+    display: "flex",
+    minWidth: "250px",
   }));
 
   const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -40,8 +46,9 @@ const NavSearchBar: React.FC = () => {
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
     width: "100%",
-    maxHeight: "35px",
-    fontSize: "0.75rem",
+
+    height: "46px",
+    fontSize: "16px",
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
 
@@ -52,13 +59,16 @@ const NavSearchBar: React.FC = () => {
   return (
     <Box
       sx={{
-        textAlign: "center",
+        display: "flex",
+        justifyContent: "center",
+        width: "100%",
+        maxWidth: "650px",
       }}
     >
       {searchBarState ? (
         <Search>
           <SearchIconWrapper>
-            <SearchIcon sx={{ color: "#dadce0" }} />
+            <SearchIcon sx={{ color: "#abadad" }} />
           </SearchIconWrapper>
           <StyledInputBase
             placeholder="Search Tossed - St Martin's Lane"
@@ -68,7 +78,7 @@ const NavSearchBar: React.FC = () => {
       ) : (
         <Button
           sx={{
-            border: "1px solid #dadce0",
+            border: "1px solid #abadad",
             borderRadius: "4px",
           }}
         >

@@ -1,16 +1,15 @@
-import NavBar from "./components/nav/navbar";
-import { Box } from "@mui/material";
-import "./App.css";
-import TopMenu from "./components/menuheader/topMenu";
-import Footer from "./components/Footer/Footer";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Menu from "./pages/menu";
+import React from "react";
 
 const App: React.FC = () => {
   return (
-    <Box>
-      <NavBar />
-      <TopMenu />
-      <Footer />
-    </Box>
+    <BrowserRouter>
+      <Routes>
+        {/* <Route path="/" element={<Login />} /> */}
+        <Route path="/" element={<Menu />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

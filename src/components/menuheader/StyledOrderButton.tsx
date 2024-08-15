@@ -1,23 +1,27 @@
 import { Button } from "@mui/material";
 import { SvgIconComponent } from "@mui/icons-material";
 
-interface PrimaryButtonProps {
+interface StyledOrderButtonProps {
   name?: string;
   Icon: SvgIconComponent; // Type for Material-UI icons
 }
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({ name, Icon }) => {
+const StyledOrderButton: React.FC<StyledOrderButtonProps> = ({
+  name,
+  Icon,
+}) => {
   return (
     <Button
       variant="contained"
       sx={{
         backgroundColor: "white",
-        color: "black",
+        display: "flex",
+        color: "#2E3333",
         border: "1px solid #dadce0",
         boxShadow: "none",
-        maxHeight: "35px",
-        fontSize: "0.65rem",
-        textWrap: "nowrap",
+        minHeight: "35px",
+        fontSize: "16px",
+        textWrap: "wrap",
         textTransform: "none",
         "&:hover": {
           borderColor: "#c5c9d1",
@@ -27,9 +31,9 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ name, Icon }) => {
         },
       }}
     >
-      <Icon sx={{ marginRight: "5px", fontSize: "1.1rem", color: "#00ccbc" }} />
+      <Icon sx={{ fontSize: "18px", color: "#00ccbc", padding: "4px" }} />
       {name && name}
     </Button>
   );
 };
-export default PrimaryButton;
+export default StyledOrderButton;

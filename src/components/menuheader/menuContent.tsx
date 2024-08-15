@@ -1,20 +1,18 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import HeaderSection from "./headerSection";
 import ContentSection from "./contentSection";
+import theme from "../../theme";
 
 const MenuContent: React.FC = () => {
+  const isDownSm = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Box
       sx={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: isDownSm ? "column" : "row",
         flexGrow: 1,
-        marginTop: "10px",
-        "@media (max-width: 375px)": {
-          marginTop: 0,
-          flexDirection: "column",
-        },
+        marginTop: isDownSm ? 0 : "10px",
       }}
     >
       <HeaderSection />

@@ -1,6 +1,6 @@
 import { AppBar, Box, Toolbar, useMediaQuery } from "@mui/material";
 import NavSearchBar from "./navSearchBar";
-import PrimaryButton from "./primaryButton";
+import PrimaryButton from "../commons/primaryButton";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import HomeIcon from "@mui/icons-material/Home";
 import { useTheme } from "@mui/material/styles";
@@ -13,22 +13,45 @@ const NavBar: React.FC = () => {
   return (
     <header>
       <AppBar
-        position="static"
+        component="nav"
         color="inherit"
         elevation={0}
-        sx={{ borderBottom: "#dadce0 0.5px solid", maxHeight: "60px" }}
+        sx={{
+          borderBottom: "#dadce0 0.5px solid",
+          height: screenSizeDownSm ? "56px " : "73px",
+          padding: "0 64px",
+        }}
       >
-        <Toolbar sx={{ justifyContent: "space-between", gap: 1 }}>
+        <Toolbar
+          sx={{
+            justifyContent: "space-between",
+            padding: "0 !important",
+            height: "73px",
+          }}
+        >
           <Box sx={{ display: "flex" }}>
             <a href="/">
-              <img src="./logo/deliveroo-logo.png" alt="Deliveroo Logo" style={{ height: "30px" }} />
+              <img
+                src="./logo/deliveroo-logo.png"
+                alt="Deliveroo Logo"
+                style={{ height: "32px", width: "121px" }}
+              />
             </a>
           </Box>
-          <Box sx={{ maxWidth: "500px", width: "500px" }}>
+          <Box
+            sx={{
+              width: "1315px",
+              justifyContent: "center",
+              display: "flex",
+              padding: "0px 16px",
+            }}
+          >
             <NavSearchBar />
           </Box>
-          <Toolbar sx={{ gap: 1 }}>
-            {screenSizeDownMd && <PrimaryButton name={"Sign Up or log in"} Icon={HomeIcon} />}
+          <Toolbar sx={{ gap: 1, display: "flex" }}>
+            {screenSizeDownMd && (
+              <PrimaryButton name={"Sign Up or log in"} Icon={HomeIcon} />
+            )}
             {!screenSizeDownSm ? (
               <PrimaryButton Icon={PersonOutlineIcon} />
             ) : (

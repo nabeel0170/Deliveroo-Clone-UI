@@ -9,9 +9,8 @@ const TopMenu: React.FC = () => {
     <section>
       <Box
         sx={{
-          marginLeft: "50px",
-          marginRight: "50px",
           minWidth: "fit-content",
+          padding: screenSizeDownSm ? "0 64px" : 0,
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",

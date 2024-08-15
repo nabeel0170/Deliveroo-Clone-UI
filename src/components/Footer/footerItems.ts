@@ -30,7 +30,7 @@ export const footerItems = {
   },
   Help: {
     title: "Help",
-    items: ["Contact", "FAQs", "Cookies", "Cuisines", "Brands"],
+    items: ["Contact", "FAQs", "Cuisines", "Brands"],
   },
   Download: {
     title: "Take Deliveroo with you",

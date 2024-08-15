@@ -8,8 +8,8 @@ const FooterBottomRow: React.FC = () => {
         display: "flex",
         flexGrow: 1,
         alignItems: "center",
-        justifyContent: "space-between",
-        maxWidth: "910px",
+        justifyContent: "space-around",
+        background: "red",
       }}
     >
       <Box sx={{ minWidth: "150px" }}>

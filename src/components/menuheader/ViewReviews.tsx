@@ -16,10 +16,10 @@ const ViewReviews: React.FC = () => {
         >
           <StarIcon
             sx={{
-              marginRight: "5px",
+              marginRight: "10px",
               color: "#4d7c1b",
               borderRadius: "13px",
-              fontSize: "1rem",
+              fontSize: "24px",
             }}
           />
 
@@ -29,10 +29,13 @@ const ViewReviews: React.FC = () => {
                 width: "fit-content",
               }}
             >
-              <Typography variant="body1" sx={{ fontSize: "0.9rem", color: "#4d7c1b" }}>
+              <Typography
+                variant="body1"
+                sx={{ fontSize: "16px", color: "#4d7c1b" }}
+              >
                 4.7 Excellent
               </Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
+              <Typography variant="body2" sx={{ fontSize: "14px" }}>
                 See all 500 reviews
               </Typography>
             </Box>
@@ -46,8 +49,9 @@ const ViewReviews: React.FC = () => {
           >
             <ArrowForwardIosIcon
               sx={{
-                fontSize: "1rem",
+                fontSize: "18px",
                 color: "#00ccbc",
+                marginLeft: "5px",
               }}
             />
           </Box>
