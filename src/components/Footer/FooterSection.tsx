@@ -28,28 +28,23 @@ const StyledBox = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   background: "#404a4a",
-  maxWidth: "270px",
+  maxWidth: "290px",
   minWidth: "190px",
   flexGrow: 1,
-  flexBasis: "calc(50% - 16px)",
-  margin: " 10px",
   padding: "10px",
   boxSizing: "border-box",
-  minHeight: "400px",
+  height: "100%",
   [theme.breakpoints.down("md")]: {
-    flexBasis: "calc(50% - 20px)",
-    maxWidth: "400px",
+    maxWidth: "none",
   },
   [theme.breakpoints.down("sm")]: {
     maxWidth: "none",
+    minHeight: "none",
+    maxHeight: "fit-content",
   },
 }));
 
-const FooterSection: React.FC<FooterSectionProps> = ({
-  title,
-  listItem,
-  image,
-}) => {
+const FooterSection: React.FC<FooterSectionProps> = ({ title, listItem, image }) => {
   const theme = useTheme();
 
   return (

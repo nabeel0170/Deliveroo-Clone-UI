@@ -8,8 +8,8 @@ const FooterBottomRow: React.FC = () => {
         display: "flex",
         flexGrow: 1,
         alignItems: "center",
-        justifyContent: "space-around",
-        background: "red",
+        justifyContent: "space-between",
+        maxWidth: "1000px",
       }}
     >
       <Box sx={{ minWidth: "150px" }}>
@@ -18,9 +18,7 @@ const FooterBottomRow: React.FC = () => {
         <FooterIconButton iconSrc={"./icons/instagram.png"} />
       </Box>
       <Box>
-        <Typography sx={{ fontSize: "0.75rem", color: "#585c5c" }}>
-          © 2024 Deliveroo
-        </Typography>
+        <Typography sx={{ fontSize: "0.75rem", color: "#585c5c" }}>© 2024 Deliveroo</Typography>
       </Box>
     </Box>
   );

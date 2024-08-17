@@ -5,17 +5,16 @@ const StyledListItem = styled.li<{ isSelected: boolean }>`
   font-weight: ${(props) => (props.isSelected ? "bold" : "normal")};
   border-radius: 15px;
   margin: 5px;
-  padding: 2px 10px;
+  padding: 2px 16px;
   list-style-type: none;
   cursor: pointer;
   box-sizing: border-box;
-  display: flex;
-  align-items: center; /* Center text vertically */
-  min-width: 0; /* Allow items to shrink if needed */
+
+  align-items: center;
   color: ${(props) => (props.isSelected ? "white" : "")};
   background-color: ${(props) => (props.isSelected ? "#00ccbc" : "none")};
   &:hover {
-    background-color:; /* Hover effect */
+    background-color:;
   }
 `;
 

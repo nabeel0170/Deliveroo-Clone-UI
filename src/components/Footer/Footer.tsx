@@ -1,53 +1,50 @@
-import { Box, useMediaQuery } from "@mui/material";
+import { Box, Grid, useMediaQuery } from "@mui/material";
 import FooterSection from "./FooterSection";
 import { footerItems } from "./footerItems";
 import FooterBottomRow from "./FooterBottom";
 import theme from "../../theme";
 
 const Footer: React.FC = () => {
-  const isDownMd = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <footer>
-      <Box
-        sx={{
-          background: "#2e3333",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-
-          padding: "20px",
-        }}
-      >
-        <Box>
-          <Box
+      <Box sx={{ background: "#2e3333" }}>
+        <Box
+          sx={{
+            padding: "24px 0 0 0",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Grid
+            container
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: isDownMd ? "wrap" : "no-wrap",
+              maxWidth: "1250px",
 
-              flexGrow: 1,
+              padding: "0 10px",
             }}
+            spacing={1}
           >
-            <FooterSection
-              title={footerItems.DiscoverDeliveroo.title}
-              listItem={footerItems.DiscoverDeliveroo.items}
-            />
-            <FooterSection
-              title={footerItems.Legal.title}
-              listItem={footerItems.Legal.items}
-            />
-            <FooterSection
-              title={footerItems.Help.title}
-              listItem={footerItems.Help.items}
-            />
-            <FooterSection
-              title={footerItems.Download.title}
-              image={footerItems.Download.images}
-            />{" "}
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <FooterBottomRow />
-          </Box>
+            <Grid item xs={12} sm={6} md={3}>
+              <FooterSection
+                title={footerItems.DiscoverDeliveroo.title}
+                listItem={footerItems.DiscoverDeliveroo.items}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <FooterSection title={footerItems.Legal.title} listItem={footerItems.Legal.items} />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <FooterSection title={footerItems.Help.title} listItem={footerItems.Help.items} />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <FooterSection title={footerItems.Download.title} image={footerItems.Download.images} />
+            </Grid>
+          </Grid>
+        </Box>{" "}
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <FooterBottomRow />
         </Box>
       </Box>
     </footer>

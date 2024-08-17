@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 
 const NavSearchBar: React.FC = () => {
   const theme = useTheme();
-  const screenSizeDownMd = useMediaQuery(theme.breakpoints.down("md"));
+  const screenSizeDownSm = useMediaQuery(theme.breakpoints.down("sm"));
   const [searchBarState, setSearchBarState] = useState(true);
 
   useEffect(() => {
-    setSearchBarState(!screenSizeDownMd);
-  }, [screenSizeDownMd]);
+    setSearchBarState(!screenSizeDownSm);
+  }, [screenSizeDownSm]);
 
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -34,7 +34,7 @@ const NavSearchBar: React.FC = () => {
   }));
 
   const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 1),
     height: "100%",
     position: "absolute",
     pointerEvents: "none",
@@ -52,7 +52,7 @@ const NavSearchBar: React.FC = () => {
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
 
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      paddingLeft: `calc(1em + ${theme.spacing(2)})`,
       transition: theme.transitions.create("width"),
     },
   }));
@@ -70,10 +70,7 @@ const NavSearchBar: React.FC = () => {
           <SearchIconWrapper>
             <SearchIcon sx={{ color: "#abadad" }} />
           </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search Tossed - St Martin's Lane"
-            inputProps={{ "aria-label": "search" }}
-          />
+          <StyledInputBase placeholder="Search Tossed - St Martin's Lane" inputProps={{ "aria-label": "search" }} />
         </Search>
       ) : (
         <Button

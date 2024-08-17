@@ -1,4 +1,4 @@
-import { Box, Toolbar } from "@mui/material";
+import { Box, Toolbar, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import { categories } from "./categories";
 import StyledListItem from "./styledListItem";
@@ -14,13 +14,12 @@ const CategoriesTab: React.FC = () => {
       sx={{
         borderTop: "#dadce0 0.5px solid",
         display: "flex",
-        marginTop: "30px",
-        paddingLeft: "30px",
+        flexGrow: 1,
         boxShadow: "0 2px 4px #0000000d",
-        justifyContent: "start",
+        justifyContent: "center",
       }}
     >
-      <Toolbar>
+      <Toolbar sx={{ display: "flex", flexGrow: 1, padding: "0 64px !important" }}>
         <ul
           style={{
             listStyleType: "none",
@@ -28,16 +27,12 @@ const CategoriesTab: React.FC = () => {
             margin: 0,
             fontSize: "0.75rem",
             display: "flex",
-            flexShrink: 0,
+            flexGrow: 1,
             color: "#00ccbc",
           }}
         >
           {categories.map(({ name, id }) => (
-            <StyledListItem
-              key={id}
-              isSelected={selectedTabBtn === id}
-              onClick={() => handleSelect(id)}
-            >
+            <StyledListItem key={id} isSelected={selectedTabBtn === id} onClick={() => handleSelect(id)}>
               {name}
             </StyledListItem>
           ))}

@@ -7,8 +7,8 @@ import { useTheme } from "@mui/material/styles";
 
 const NavBar: React.FC = () => {
   const theme = useTheme();
-  const screenSizeDownMd = useMediaQuery(theme.breakpoints.up("md"));
-  const screenSizeDownSm = useMediaQuery(theme.breakpoints.up("sm"));
+  const screenSizeUpMd = useMediaQuery(theme.breakpoints.up("md"));
+  const screenSizeUpSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
     <header>
@@ -18,26 +18,23 @@ const NavBar: React.FC = () => {
         elevation={0}
         sx={{
           borderBottom: "#dadce0 0.5px solid",
-          height: screenSizeDownSm ? "56px " : "73px",
+          height: screenSizeUpSm ? "73px" : "56px ",
+          boxSizing: "border-box",
           padding: "0 64px",
         }}
       >
         <Toolbar
           sx={{
-            justifyContent: "space-between",
+            justifyContent: "center",
             padding: "0 !important",
-            height: "73px",
+            height: screenSizeUpSm ? "73px" : "56px ",
           }}
+          disableGutters={false}
         >
-          <Box sx={{ display: "flex" }}>
-            <a href="/">
-              <img
-                src="./logo/deliveroo-logo.png"
-                alt="Deliveroo Logo"
-                style={{ height: "32px", width: "121px" }}
-              />
-            </a>
-          </Box>
+          <a href="/" style={{ height: "32px", width: "121px" }}>
+            <img src="./logo/deliveroo-logo.png" alt="Deliveroo Logo" style={{ height: "32px", width: "121px" }} />
+          </a>
+
           <Box
             sx={{
               width: "1315px",
@@ -48,14 +45,12 @@ const NavBar: React.FC = () => {
           >
             <NavSearchBar />
           </Box>
-          <Toolbar sx={{ gap: 1, display: "flex" }}>
-            {screenSizeDownMd && (
-              <PrimaryButton name={"Sign Up or log in"} Icon={HomeIcon} />
-            )}
-            {!screenSizeDownSm ? (
-              <PrimaryButton Icon={PersonOutlineIcon} />
-            ) : (
+          <Toolbar sx={{ gap: 1 }} disableGutters={true}>
+            {screenSizeUpMd && <PrimaryButton name={"Sign up or log in"} Icon={HomeIcon} />}
+            {screenSizeUpSm ? (
               <PrimaryButton name={"Account"} Icon={PersonOutlineIcon} />
+            ) : (
+              <PrimaryButton Icon={PersonOutlineIcon} />
             )}
           </Toolbar>
         </Toolbar>

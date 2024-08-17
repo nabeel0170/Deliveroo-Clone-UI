@@ -7,7 +7,8 @@ import { useMediaQuery } from "@mui/material";
 
 const OrderOptions: React.FC = () => {
   const theme = useTheme();
-  const screenSizeDownMd = useMediaQuery(theme.breakpoints.up("md"));
+  const screenSizeUpMd = useMediaQuery(theme.breakpoints.up("md"));
+  const screenSizeDownLg = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
     <Box
@@ -20,9 +21,6 @@ const OrderOptions: React.FC = () => {
       <Box
         sx={{
           marginLeft: "5px",
-          "@media (min-width:900px)": {
-            marginLeft: "auto",
-          },
         }}
       >
         <Link
@@ -35,26 +33,19 @@ const OrderOptions: React.FC = () => {
           }}
           href="/"
         >
-          <img
-            src="./icons/delivery.png"
-            style={{ height: "24px", marginRight: "10px" }}
-            alt="Delivery"
-          />
+          <img src="./icons/delivery.png" style={{ height: "24px", marginRight: "10px" }} alt="Delivery" />
           Deliver from 11:00 - 11:30
           <span style={{ color: "#00ccbc", marginLeft: "10px" }}>Change</span>
         </Link>
-        {screenSizeDownMd && (
+        {screenSizeUpMd && (
           <Box
             sx={{
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: screenSizeDownLg ? "start " : "flex-end",
               marginTop: "10px",
             }}
           >
-            <PrimaryButton
-              name={"Start Group Order"}
-              Icon={PeopleAltOutlinedIcon}
-            />
+            <PrimaryButton name={"Start Group Order"} Icon={PeopleAltOutlinedIcon} />
           </Box>
         )}
       </Box>
