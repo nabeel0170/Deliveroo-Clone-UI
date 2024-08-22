@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 import PrimaryButton from "../commons/primaryButton";
 import RoundBackButton from "./roundBackButton";
@@ -7,11 +7,20 @@ import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import StyledOrderButton from "./StyledOrderButton";
 import BackButton from "./backButton";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchRestaurantDetails } from "../../redux/restaurantThunks";
 
 const HeaderSection: React.FC = () => {
   const theme = useTheme();
   const screenSizeDownMd = useMediaQuery(theme.breakpoints.down("md"));
   const screenSizeDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+  const dispatch = useAppDispatch();
+  const details = useAppSelector((state) => state.menu.details);
+  const { itemImgSrc } = details;
+
+  useEffect(() => {
+    dispatch(fetchRestaurantDetails());
+  }, [dispatch]);
 
   return (
     <Box>
@@ -20,12 +29,13 @@ const HeaderSection: React.FC = () => {
           <BackButton />
         </Box>
       )}
+
       <Box
         sx={{
           display: "flex",
           flexGrow: 1,
           flexDirection: "column",
-          backgroundImage: "url(./logo/image-1.webp)",
+          backgroundImage: `url(${itemImgSrc})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",

@@ -9,7 +9,6 @@ const StyledListItem = styled.li<{ isSelected: boolean }>`
   list-style-type: none;
   cursor: pointer;
   box-sizing: border-box;
-
   align-items: center;
   color: ${(props) => (props.isSelected ? "white" : "")};
   background-color: ${(props) => (props.isSelected ? "#00ccbc" : "none")};

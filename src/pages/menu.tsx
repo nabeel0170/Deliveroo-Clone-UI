@@ -33,12 +33,3 @@ const Menu: React.FC = () => {
   );
 };
 export default Menu;
-//  <Container maxWidth="xl" disableGutters={true}>
-//     <NavBar />
-//     {/* <Box sx={{ pt: "74px" }}> */}
-//     <TopMenu />
-//     {/* <CategoriesTab /> */}
-//     {/* <Items />
-//     </Box>
-//     <Footer /> */}
-//   </Container>

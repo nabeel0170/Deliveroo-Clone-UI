@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Info from "./info";
 import ViewReviews from "./ViewReviews";
 import OrderOptions from "./orderOptions";
+import { fetchRestaurantDetails } from "../../redux/restaurantThunks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const ContentSection: React.FC = () => {
   const theme = useTheme();
   const isDownMd = useMediaQuery(theme.breakpoints.down("md"));
   const isDownLg = useMediaQuery(theme.breakpoints.down("lg"));
   const isDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+  const dispatch = useAppDispatch();
+  const details = useAppSelector((state) => state.menu.details);
+  const { restaurantName, foodTypes, distance, openTime, minOrderAmount, minDeliveryFee } = details;
+  const [randomHour, randomMinute] = openTime || [0, 0];
 
+  useEffect(() => {
+    dispatch(fetchRestaurantDetails());
+  }, [dispatch]);
   return (
     <Box
       sx={{
@@ -50,13 +59,18 @@ const ContentSection: React.FC = () => {
                 },
               }}
             >
-              <strong>Tossed - St Martin's Lane</strong>
+              <strong>{restaurantName}</strong>
             </Typography>
             <Typography variant="body1" sx={{ fontSize: "16px" }}>
-              Chicken &#183; Salads &#183; Healthy
+              {foodTypes.map((type, index) => (
+                <React.Fragment key={index}>
+                  {type} {index < foodTypes.length - 1 && <span> &#183; </span>}
+                </React.Fragment>
+              ))}
             </Typography>
             <Typography variant="body2" sx={{ fontSize: "16px" }}>
-              0.20 miles away &#183; Opens at 11:00 &#183; £7.00 minimum &#183; £0.79 delivery
+              {distance} miles away &#183; Opens at {randomHour}:{randomMinute}&#183; £{minOrderAmount} minimum &#183; £
+              {minDeliveryFee} delivery
             </Typography>
           </Box>
           <Info />
