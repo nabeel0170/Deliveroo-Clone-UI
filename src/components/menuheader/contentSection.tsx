@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material/styles";
 import Info from "./info";
 import ViewReviews from "./ViewReviews";
 import OrderOptions from "./orderOptions";
-import { fetchRestaurantDetails } from "../../redux/restaurantThunks";
+import { fetchRestaurantDetails } from "../../redux/restaurantReducers";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const ContentSection: React.FC = () => {

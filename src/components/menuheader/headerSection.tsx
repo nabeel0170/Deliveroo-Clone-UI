@@ -8,7 +8,7 @@ import { useTheme } from "@mui/material/styles";
 import StyledOrderButton from "./StyledOrderButton";
 import BackButton from "./backButton";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchRestaurantDetails } from "../../redux/restaurantThunks";
+import { fetchRestaurantDetails } from "../../redux/restaurantReducers";
 
 const HeaderSection: React.FC = () => {
   const theme = useTheme();

@@ -4,12 +4,17 @@ import PrimaryButton from "../commons/primaryButton";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import HomeIcon from "@mui/icons-material/Home";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const NavBar: React.FC = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const screenSizeUpMd = useMediaQuery(theme.breakpoints.up("md"));
   const screenSizeUpSm = useMediaQuery(theme.breakpoints.up("sm"));
-
+  const navigateToLogin = () => {
+    console.log("navigate");
+    navigate("/login");
+  };
   return (
     <header>
       <AppBar
@@ -46,9 +51,9 @@ const NavBar: React.FC = () => {
             <NavSearchBar />
           </Box>
           <Toolbar sx={{ gap: 1 }} disableGutters={true}>
-            {screenSizeUpMd && <PrimaryButton name={"Sign up or log in"} Icon={HomeIcon} />}
+            {screenSizeUpMd && <PrimaryButton name={"Sign up or log in"} Icon={HomeIcon} onClick={navigateToLogin} />}
             {screenSizeUpSm ? (
-              <PrimaryButton name={"Account"} Icon={PersonOutlineIcon} />
+              <PrimaryButton name={"Account"} Icon={PersonOutlineIcon} onClick={navigateToLogin} />
             ) : (
               <PrimaryButton Icon={PersonOutlineIcon} />
             )}

@@ -17,7 +17,7 @@ const Menu: React.FC = () => {
         <Grid item xs={12}>
           <CategoriesTab />
         </Grid>
-        <Grid container sx={{ padding: { xs: "0 32px", lg: "0 64px" }, background: "blue" }}>
+        <Grid container>
           <Grid item xs={8} sx={{ background: "green" }}>
             s
           </Grid>

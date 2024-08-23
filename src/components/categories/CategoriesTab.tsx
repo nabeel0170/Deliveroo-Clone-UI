@@ -32,7 +32,7 @@ const CategoriesTab: React.FC = () => {
           }}
         >
           {categories.map(({ name, id }) => (
-            <StyledListItem key={id} isSelected={selectedTabBtn === id} onClick={() => handleSelect(id)}>
+            <StyledListItem key={id} isselected={selectedTabBtn === id} onClick={() => handleSelect(id)}>
               {name}
             </StyledListItem>
           ))}
