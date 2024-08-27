@@ -8,8 +8,7 @@ export const fetchRestaurantDetails = createAsyncThunk(
   "menu/fetchRestaurantDetails",
   async (_, { rejectWithValue }) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const response = await axios.get("http://localhost:8000/api/restaurantDetails", {
+      const response = await axios.get("http://localhost:8000/api/restaurant/restaurantDetails", {
         headers: {
           "api-key": apiKey,
         },
