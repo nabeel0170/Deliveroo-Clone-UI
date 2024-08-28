@@ -1,34 +1,45 @@
-import React from "react";
-import { TextField, InputAdornment, IconButton } from "@mui/material";
+import React, { useState } from "react";
+import { TextField, InputAdornment, IconButton, Typography } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 interface PasswordFieldProps {
-  showPassword: boolean;
-  onClickShowPassword: () => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
+  helperText?: string;
+  label: string;
 }
 
-const PasswordField: React.FC<PasswordFieldProps> = ({ showPassword, onClickShowPassword, onChange, value }) => (
-  <TextField
-    id="password-field"
-    placeholder="Password"
-    type={showPassword ? "text" : "password"}
-    InputProps={{
-      endAdornment: (
-        <InputAdornment position="end">
-          <IconButton onClick={onClickShowPassword} edge="end">
-            {showPassword ? <Visibility /> : <VisibilityOff />}
-          </IconButton>
-        </InputAdornment>
-      ),
-    }}
-    fullWidth
-    onChange={onChange}
-    autoComplete="current-password"
-    required
-    value={value}
-  />
-);
+const PasswordField: React.FC<PasswordFieldProps> = ({ onChange, value, helperText, label }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  return (
+    <div>
+      <Typography variant="body1">{label}</Typography>
+      <TextField
+        id="password-field"
+        placeholder="Password"
+        type={showPassword ? "text" : "password"}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={handleClickShowPassword} edge="end">
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+        fullWidth
+        onChange={onChange}
+        autoComplete="password"
+        required
+        value={value}
+        helperText={helperText}
+      />
+    </div>
+  );
+};
 
 export default PasswordField;

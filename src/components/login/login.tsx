@@ -9,8 +9,11 @@ import EmailField from "./emailTextField";
 import PasswordField from "./passwordTextField";
 import LoginButtons from "./loginButtons";
 import CommonTextField from "./commonTextField";
+import { useDispatch } from "react-redux";
+import { setLoggedIn } from "../../redux/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
-const apiKey = "your-secret-api-key";
+const APIKEY = process.env.REACT_APP_API_KEY;
 
 const LoginForm: React.FC = () => {
   const screenSizeUpSm = useMediaQuery(theme.breakpoints.up("sm"));
@@ -20,16 +23,16 @@ const LoginForm: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [contactNumber, setContactNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [passwordHelperText, setPasswordHelperText] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [newRepeatedPassword, setNewRepeatedPassword] = useState<string>("");
   const [repeatedPasswordHelperText, setRepeatedPasswordHelperText] = useState<string>("");
   const [emailAvailability, setEmailAvailability] = useState<boolean>(false);
   const [signUpUser, setSignUpUser] = useState<boolean>(false);
   const [loginUserState, setloginUserState] = useState<boolean>(false);
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
+  const [emaiLHelperText, setEmailHelperText] = useState<string>("");
+  const [signUpDisabled, setSignUpDisabled] = useState<boolean>(true);
+  const navigate = useNavigate();
   const secretEncryptionKey = "your-secret-key";
 
   useEffect(() => {
@@ -61,7 +64,7 @@ const LoginForm: React.FC = () => {
         { email: email },
         {
           headers: {
-            "api-key": apiKey,
+            "api-key": APIKEY,
           },
         }
       );
@@ -80,6 +83,7 @@ const LoginForm: React.FC = () => {
     }
   };
 
+  const dispatch = useDispatch();
   const loginUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await verifyEmail();
@@ -94,17 +98,21 @@ const LoginForm: React.FC = () => {
           },
           {
             headers: {
-              "api-key": apiKey,
+              "api-key": APIKEY,
             },
           }
         );
-        const result = await response;
-        console.log(result);
+        if (response.data.success === false) {
+          setPasswordHelperText("Invalid Password or Email");
+        } else {
+          setPasswordHelperText("");
+          dispatch(setLoggedIn(true));
+          navigate("/");
+        }
       } catch (error) {
         console.log(error);
       }
     }
-    console.log("logging", encryptedPassword);
   };
 
   const registerUser = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -115,7 +123,20 @@ const LoginForm: React.FC = () => {
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
-
+  useEffect(() => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    switch (true) {
+      case email.length === 0:
+        setEmailHelperText("");
+        break;
+      case emailPattern.test(email):
+        setEmailHelperText("");
+        break;
+      default:
+        setEmailHelperText("Invalid Email");
+        break;
+    }
+  }, [handleEmailChange]);
   useEffect(() => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (email.length > 0 && emailPattern.test(email)) {
@@ -151,13 +172,13 @@ const LoginForm: React.FC = () => {
             </Box>
           ) : (
             <Box>
-              <EmailField email={email} onChange={handleEmailChange} />
+              <EmailField email={email} onChange={handleEmailChange} helperText={emaiLHelperText} />
               {emailAvailability && (
                 <PasswordField
-                  showPassword={showPassword}
-                  onClickShowPassword={handleClickShowPassword}
+                  label="Password"
                   onChange={(event) => setPassword(event.currentTarget.value)}
                   value={password}
+                  helperText={passwordHelperText}
                 />
               )}
               {signUpUser && (
@@ -179,18 +200,15 @@ const LoginForm: React.FC = () => {
                     inputProps={{ maxLength: 12, autoComplete: "tel" }}
                   />
                   <PasswordField
-                    showPassword={showPassword}
-                    onClickShowPassword={handleClickShowPassword}
+                    label="New Password"
                     onChange={(event) => setNewPassword(event.currentTarget.value)}
                     value={newPassword}
                   />
                   {newPassword !== "" && <PasswordStrengthBar password={newPassword} minLength={8} />}
-                  <CommonTextField
+                  <PasswordField
                     label="Repeat Password"
-                    placeholder="Repeat Password"
                     value={newRepeatedPassword}
                     onChange={(event) => setNewRepeatedPassword(event.currentTarget.value)}
-                    type={showPassword ? "text" : "password"}
                     helperText={repeatedPasswordHelperText}
                   />
                 </>
@@ -199,7 +217,7 @@ const LoginForm: React.FC = () => {
                 signUpUser={signUpUser}
                 loginUserState={loginUserState}
                 continueButtonState={continueButtonState}
-                handleClickShowPassword={handleClickShowPassword}
+                signUpDisabled={signUpDisabled}
               />
             </Box>
           )}

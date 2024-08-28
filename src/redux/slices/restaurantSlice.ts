@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { fetchRestaurantDetails } from "../restaurantReducers";
 
-export interface RestauranDetailsState {
+export interface RestauranDetailsType {
   details: {
     itemImgSrc: string;
     restaurantName: string;
@@ -14,7 +14,7 @@ export interface RestauranDetailsState {
   };
 }
 
-const initialState: RestauranDetailsState = {
+export const RestauranDetailsInitialState: RestauranDetailsType = {
   details: {
     itemImgSrc: "",
     restaurantName: "",
@@ -28,10 +28,10 @@ const initialState: RestauranDetailsState = {
 
 export const menuSlice = createSlice({
   name: "menu",
-  initialState,
+  initialState: RestauranDetailsInitialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchRestaurantDetails.fulfilled, (state, action: PayloadAction<RestauranDetailsState>) => {
+    builder.addCase(fetchRestaurantDetails.fulfilled, (state, action: PayloadAction<RestauranDetailsType>) => {
       state.details = action.payload.details;
     });
   },

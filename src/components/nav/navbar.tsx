@@ -3,14 +3,17 @@ import NavSearchBar from "./navSearchBar";
 import PrimaryButton from "../commons/primaryButton";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
 
 const NavBar: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const screenSizeUpMd = useMediaQuery(theme.breakpoints.up("md"));
   const screenSizeUpSm = useMediaQuery(theme.breakpoints.up("sm"));
+  const isLoggedIn = useAppSelector((state) => state.user.LoggedIn);
   const navigateToLogin = () => {
     console.log("navigate");
     navigate("/login");
@@ -51,7 +54,10 @@ const NavBar: React.FC = () => {
             <NavSearchBar />
           </Box>
           <Toolbar sx={{ gap: 1 }} disableGutters={true}>
-            {screenSizeUpMd && <PrimaryButton name={"Sign up or log in"} Icon={HomeIcon} onClick={navigateToLogin} />}
+            {screenSizeUpMd && isLoggedIn === false && (
+              <PrimaryButton name={"Sign up or log in"} Icon={HomeIcon} onClick={navigateToLogin} />
+            )}
+            {screenSizeUpMd && isLoggedIn === true && <PrimaryButton name={"Logout"} Icon={LogoutIcon} />}
             {screenSizeUpSm ? (
               <PrimaryButton name={"Account"} Icon={PersonOutlineIcon} onClick={navigateToLogin} />
             ) : (

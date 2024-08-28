@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { RestauranDetailsState } from "./slices/restaurantSlice";
-import { faker } from "@faker-js/faker";
+import { RestauranDetailsType } from "./slices/restaurantSlice";
 import axios from "axios";
-const apiKey = "your-secret-api-key";
+const apiKey = process.env.REACT_APP_API_KEY;
 
 export const fetchRestaurantDetails = createAsyncThunk(
   "menu/fetchRestaurantDetails",
@@ -14,7 +13,7 @@ export const fetchRestaurantDetails = createAsyncThunk(
         },
       });
       // Return data if response is successful
-      return response.data as RestauranDetailsState;
+      return response.data as RestauranDetailsType;
     } catch (error) {
       const errorMessage = (error as Error).message || "Cannot fetch data right now";
       return rejectWithValue(errorMessage);

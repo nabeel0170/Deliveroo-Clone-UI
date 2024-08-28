@@ -31,6 +31,7 @@ const CommonTextField: React.FC<CommonTextFieldProps> = ({
       inputProps={inputProps}
       helperText={helperText}
       required
+      sx={{ marginBottom: "5px" }}
     />
   </>
 );

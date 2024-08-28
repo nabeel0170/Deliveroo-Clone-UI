@@ -5,19 +5,19 @@ interface LoginButtonsProps {
   signUpUser: boolean;
   loginUserState: boolean;
   continueButtonState: boolean;
-  handleClickShowPassword: () => void;
+  signUpDisabled: boolean;
 }
 
 const LoginButtons: React.FC<LoginButtonsProps> = ({
   signUpUser,
   loginUserState,
   continueButtonState,
-  handleClickShowPassword,
+  signUpDisabled,
 }) => (
   <>
     {signUpUser && (
       <>
-        <LoginPrimaryButton name={"Sign Up"} type="submit" disabled={continueButtonState} />
+        <LoginPrimaryButton name={"Sign Up"} type="submit" disabled={signUpDisabled} />
       </>
     )}
     {!loginUserState && !signUpUser && (
@@ -25,7 +25,7 @@ const LoginButtons: React.FC<LoginButtonsProps> = ({
     )}
     {loginUserState && (
       <>
-        <LoginPrimaryButton type="submit" name={"Login"} disabled={continueButtonState} />
+        <LoginPrimaryButton type="submit" name={"Login"} />
         <LoginPrimaryButton
           name={"Forgot password?"}
           sx={{
