@@ -7,10 +7,14 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
+import { useDispatch } from "react-redux";
+import { setLoggedOut } from "../../redux/slices/userSlice";
+import Cookies from "js-cookie";
 
 const NavBar: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const screenSizeUpMd = useMediaQuery(theme.breakpoints.up("md"));
   const screenSizeUpSm = useMediaQuery(theme.breakpoints.up("sm"));
   const isLoggedIn = useAppSelector((state) => state.user.LoggedIn);
@@ -18,8 +22,13 @@ const NavBar: React.FC = () => {
     console.log("navigate");
     navigate("/login");
   };
+  const logOutUser = () => {
+    Cookies.remove("token");
+    dispatch(setLoggedOut());
+  };
+
   return (
-    <header>
+    <>
       <AppBar
         component="nav"
         color="inherit"
@@ -57,7 +66,9 @@ const NavBar: React.FC = () => {
             {screenSizeUpMd && isLoggedIn === false && (
               <PrimaryButton name={"Sign up or log in"} Icon={HomeIcon} onClick={navigateToLogin} />
             )}
-            {screenSizeUpMd && isLoggedIn === true && <PrimaryButton name={"Logout"} Icon={LogoutIcon} />}
+            {screenSizeUpMd && isLoggedIn === true && (
+              <PrimaryButton name={"Logout"} Icon={LogoutIcon} onClick={logOutUser} />
+            )}
             {screenSizeUpSm ? (
               <PrimaryButton name={"Account"} Icon={PersonOutlineIcon} onClick={navigateToLogin} />
             ) : (
@@ -66,7 +77,7 @@ const NavBar: React.FC = () => {
           </Toolbar>
         </Toolbar>
       </AppBar>
-    </header>
+    </>
   );
 };
 export default NavBar;

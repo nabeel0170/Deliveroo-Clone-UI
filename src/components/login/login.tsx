@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 import { Box, Divider, TextField, Typography, useMediaQuery } from "@mui/material";
 import theme from "../../theme";
 import axios from "axios";
@@ -12,6 +13,7 @@ import CommonTextField from "./commonTextField";
 import { useDispatch } from "react-redux";
 import { setLoggedIn } from "../../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { generateSalt, hashPassword } from "../../utils/hash-helper";
 
 const APIKEY = process.env.REACT_APP_API_KEY;
 
@@ -31,7 +33,8 @@ const LoginForm: React.FC = () => {
   const [signUpUser, setSignUpUser] = useState<boolean>(false);
   const [loginUserState, setloginUserState] = useState<boolean>(false);
   const [emaiLHelperText, setEmailHelperText] = useState<string>("");
-  const [signUpDisabled, setSignUpDisabled] = useState<boolean>(true);
+  const [contactHelperText, setContactHelperText] = useState<string>("");
+  const [signUpDisabled, setSignUpDisabled] = useState<boolean>(false);
   const navigate = useNavigate();
   const secretEncryptionKey = "your-secret-key";
 
@@ -42,9 +45,34 @@ const LoginForm: React.FC = () => {
   }, [emailAvailability]);
 
   useEffect(() => {
-    console.log(email, name, password, newPassword, newRepeatedPassword, contactNumber);
-  }, [email, name, password, newPassword, newRepeatedPassword, contactNumber]);
+    let IsTrue: boolean;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const contactNumberPattern = /^\d{12}$/;
 
+    const isEmailValid = emailPattern.test(email);
+    const isNameValid = name.trim().length > 0;
+    const isNewPasswordValid = newPassword.trim().length > 0;
+    const isNewRepeatedPasswordValid = newPassword === newRepeatedPassword;
+    const isContactNumberValid = contactNumberPattern.test(contactNumber);
+    const allValid =
+      isEmailValid && isNameValid && isNewPasswordValid && isNewRepeatedPasswordValid && isContactNumberValid;
+    IsTrue = allValid;
+    if (!isEmailValid) {
+      setEmailHelperText("Invalid Email");
+    } else {
+      setEmailHelperText("");
+    }
+    if (!isContactNumberValid) {
+      setContactHelperText("Invalid Contact Number");
+    } else {
+      setContactHelperText("");
+    }
+    if (IsTrue) {
+      setSignUpDisabled(false);
+    } else {
+      setSignUpDisabled(true);
+    }
+  }, [email, name, password, newPassword, newRepeatedPassword, contactNumber]);
   const handleSignInWithEmail = () => {
     setSignInWithEmailSelected(true);
   };
@@ -105,9 +133,12 @@ const LoginForm: React.FC = () => {
         if (response.data.success === false) {
           setPasswordHelperText("Invalid Password or Email");
         } else {
+          const token = response.data.token;
           setPasswordHelperText("");
-          dispatch(setLoggedIn(true));
+          Cookies.set("token", token, { expires: 1 });
+          dispatch(setLoggedIn(token));
           navigate("/");
+          console.log(response);
         }
       } catch (error) {
         console.log(error);
@@ -118,6 +149,35 @@ const LoginForm: React.FC = () => {
   const registerUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await verifyEmail();
+    try {
+      const salt = generateSalt();
+      const hashedPassword = hashPassword(password, salt);
+      console.log(hashedPassword);
+      const response = await axios.post(
+        "http://localhost:8000/api/user/registerUser",
+        { email: email, name: name, contactNumber: contactNumber, NewPassword: hashedPassword, salt: salt },
+        {
+          headers: {
+            "api-key": APIKEY,
+          },
+        }
+      );
+      const result = await response.data.success;
+      if (result === true) {
+        setSignUpUser(false);
+        setName("");
+        setContactNumber("");
+        setNewPassword("");
+        setNewRepeatedPassword("");
+        setContactHelperText("");
+        setPassword("");
+        setPasswordHelperText("");
+        setloginUserState(true);
+        setEmailAvailability(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,9 +209,9 @@ const LoginForm: React.FC = () => {
   return (
     <Box
       sx={{
-        paddingTop: screenSizeUpSm ? "73px" : "56px",
         display: "flex",
         flexDirection: "column",
+        marginTop: screenSizeUpSm ? "73px" : "56px",
         minHeight: "600px",
         justifyContent: "center",
         maxWidth: "450px",
@@ -198,6 +258,7 @@ const LoginForm: React.FC = () => {
                     onChange={(event) => setContactNumber(event.currentTarget.value)}
                     type="number"
                     inputProps={{ maxLength: 12, autoComplete: "tel" }}
+                    helperText={contactHelperText}
                   />
                   <PasswordField
                     label="New Password"

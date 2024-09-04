@@ -1,10 +1,36 @@
 import { Box, Toolbar, Tooltip } from "@mui/material";
-import React, { useState } from "react";
-import { categories } from "./categories";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import StyledListItem from "./styledListItem";
 
+const APIKEY = process.env.REACT_APP_API_KEY;
+
+interface Category {
+  id: number;
+  name: string;
+}
+
 const CategoriesTab: React.FC = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
   const [selectedTabBtn, setSelectedTabBtn] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/restaurant/itemCategories", {
+          headers: {
+            "api-key": APIKEY,
+          },
+        });
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Error getting categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const handleSelect = (id: number) => {
     setSelectedTabBtn(id);
   };
@@ -41,4 +67,5 @@ const CategoriesTab: React.FC = () => {
     </Box>
   );
 };
+
 export default CategoriesTab;

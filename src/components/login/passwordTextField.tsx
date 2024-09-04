@@ -23,13 +23,14 @@ const PasswordField: React.FC<PasswordFieldProps> = ({ onChange, value, helperTe
         placeholder="Password"
         type={showPassword ? "text" : "password"}
         InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={handleClickShowPassword} edge="end">
-                {showPassword ? <Visibility /> : <VisibilityOff />}
-              </IconButton>
-            </InputAdornment>
-          ),
+          endAdornment:
+            value.length > 0 ? (
+              <InputAdornment position="end">
+                <IconButton onClick={handleClickShowPassword} edge="end">
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ) : null,
         }}
         fullWidth
         onChange={onChange}
