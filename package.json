@@ -85,5 +85,10 @@
     "hooks": {
       "commit-msg": "npx --no-install commitlint --edit $1"
     }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }
