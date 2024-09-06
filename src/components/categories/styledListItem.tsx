@@ -1,20 +1,61 @@
-import styled from "styled-components";
+import React, { useRef, useEffect, useState } from "react";
+import styled from "@emotion/styled";
 
-const StyledListItem = styled.li<{ isselected: boolean }>`
-  border: ${(props) => (props.isselected ? "2px #00ccbc solid" : "none")};
-  font-weight: ${(props) => (props.isselected ? "bold" : "normal")};
-  border-radius: 15px;
-  margin: 5px;
+interface StyledListItemProps {
+  children: React.ReactNode;
+  isSelected: boolean;
+  onClick: () => void;
+}
+
+const ListItemButton = styled.button<{
+  isSelected: boolean;
+  buttonWidth: number;
+}>`
+  width: ${(props) => props.buttonWidth + 15}px; /* Add extra space */
+  height: 20px;
   padding: 2px 16px;
-  list-style-type: none;
   cursor: pointer;
-  box-sizing: border-box;
+  background: ${(props) => (props.isSelected ? "#00CCBC" : "transparent")};
+  color: ${(props) => (props.isSelected ? "white" : "#00CCBC")};
+  border: ${(props) => (props.isSelected ? "2px solid #00ccbc" : "none")};
+  border-radius: 15px;
+  font-weight: ${(props) => (props.isSelected ? "bold" : "normal")};
+  white-space: nowrap;
+  margin-right: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
   align-items: center;
-  color: ${(props) => (props.isselected ? "white" : "")};
-  background-color: ${(props) => (props.isselected ? "#00ccbc" : "none")};
-  &:hover {
-    background-color:;
-  }
+  display: flex;
+  justify-content: center;
 `;
 
-export default StyledListItem;
+export const StyledListItem: React.FC<StyledListItemProps> = ({
+  children,
+  isSelected,
+  onClick,
+}) => {
+  const textRef = useRef<HTMLSpanElement>(null);
+  const [buttonWidth, setButtonWidth] = useState<number>(0);
+
+  useEffect(() => {
+    if (textRef.current) {
+      setButtonWidth(textRef.current.offsetWidth);
+    }
+  }, [children]);
+
+  return (
+    <li style={{ display: "inline-block", margin: "0 4px" }}>
+      <ListItemButton
+        isSelected={isSelected}
+        onClick={onClick}
+        buttonWidth={buttonWidth}
+      >
+        <span ref={textRef}>{children}</span>
+      </ListItemButton>
+    </li>
+  );
+};

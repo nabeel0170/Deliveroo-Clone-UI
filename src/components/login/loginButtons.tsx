@@ -17,11 +17,19 @@ const LoginButtons: React.FC<LoginButtonsProps> = ({
   <>
     {signUpUser && (
       <>
-        <LoginPrimaryButton name={"Sign Up"} type="submit" disabled={signUpDisabled} />
+        <LoginPrimaryButton
+          name={"Sign Up"}
+          type="submit"
+          disabled={signUpDisabled}
+        />
       </>
     )}
     {!loginUserState && !signUpUser && (
-      <LoginPrimaryButton type="submit" name={"Continue"} disabled={continueButtonState} />
+      <LoginPrimaryButton
+        type="submit"
+        name={"Continue"}
+        disabled={continueButtonState}
+      />
     )}
     {loginUserState && (
       <>

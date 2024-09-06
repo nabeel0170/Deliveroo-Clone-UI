@@ -7,7 +7,11 @@ interface EmailFieldProps {
   helperText?: string;
 }
 
-const EmailField: React.FC<EmailFieldProps> = ({ email, onChange, helperText }) => (
+const EmailField: React.FC<EmailFieldProps> = ({
+  email,
+  onChange,
+  helperText,
+}) => (
   <>
     <Typography variant="body1">Email Address</Typography>
     <TextField

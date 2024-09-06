@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Box } from "@mui/material";
-import PrimaryButton from "../commons/primaryButton";
 import RoundBackButton from "./roundBackButton";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { useMediaQuery } from "@mui/material";
@@ -59,7 +58,12 @@ const HeaderSection: React.FC = () => {
             padding: "10px",
           }}
         >
-          {screenSizeDownMd && <StyledOrderButton name={"Start Group Order"} Icon={PeopleAltOutlinedIcon} />}
+          {screenSizeDownMd && (
+            <StyledOrderButton
+              name={"Start Group Order"}
+              Icon={PeopleAltOutlinedIcon}
+            />
+          )}
         </Box>
         <Box
           sx={{

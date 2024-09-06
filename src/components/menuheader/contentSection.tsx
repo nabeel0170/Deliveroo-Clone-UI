@@ -14,7 +14,14 @@ const ContentSection: React.FC = () => {
   const isDownSm = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useAppDispatch();
   const details = useAppSelector((state) => state.menu.details);
-  const { restaurantName, foodTypes, distance, openTime, minOrderAmount, minDeliveryFee } = details;
+  const {
+    restaurantName,
+    foodTypes,
+    distance,
+    openTime,
+    minOrderAmount,
+    minDeliveryFee,
+  } = details;
   const [randomHour, randomMinute] = openTime || [0, 0];
 
   useEffect(() => {
@@ -69,8 +76,8 @@ const ContentSection: React.FC = () => {
               ))}
             </Typography>
             <Typography variant="body2" sx={{ fontSize: "16px" }}>
-              {distance} miles away &#183; Opens at {randomHour}:{randomMinute}&#183; £{minOrderAmount} minimum &#183; £
-              {minDeliveryFee} delivery
+              {distance} miles away &#183; Opens at {randomHour}:{randomMinute}
+              &#183; £{minOrderAmount} minimum &#183; £{minDeliveryFee} delivery
             </Typography>
           </Box>
           <Info />

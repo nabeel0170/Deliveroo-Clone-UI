@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { TextField, InputAdornment, IconButton, Typography } from "@mui/material";
+import {
+  TextField,
+  InputAdornment,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 interface PasswordFieldProps {
@@ -9,7 +14,12 @@ interface PasswordFieldProps {
   label: string;
 }
 
-const PasswordField: React.FC<PasswordFieldProps> = ({ onChange, value, helperText, label }) => {
+const PasswordField: React.FC<PasswordFieldProps> = ({
+  onChange,
+  value,
+  helperText,
+  label,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword((prev) => !prev);

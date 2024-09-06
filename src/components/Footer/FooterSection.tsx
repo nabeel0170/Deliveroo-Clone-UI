@@ -44,7 +44,11 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const FooterSection: React.FC<FooterSectionProps> = ({ title, listItem, image }) => {
+const FooterSection: React.FC<FooterSectionProps> = ({
+  title,
+  listItem,
+  image,
+}) => {
   const theme = useTheme();
 
   return (

@@ -1,8 +1,7 @@
-import { Box, Grid, useMediaQuery } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import FooterSection from "./FooterSection";
 import { footerItems } from "./footerItems";
 import FooterBottomRow from "./FooterBottom";
-import theme from "../../theme";
 
 const Footer: React.FC = () => {
   return (
@@ -33,13 +32,22 @@ const Footer: React.FC = () => {
               />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <FooterSection title={footerItems.Legal.title} listItem={footerItems.Legal.items} />
+              <FooterSection
+                title={footerItems.Legal.title}
+                listItem={footerItems.Legal.items}
+              />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <FooterSection title={footerItems.Help.title} listItem={footerItems.Help.items} />
+              <FooterSection
+                title={footerItems.Help.title}
+                listItem={footerItems.Help.items}
+              />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <FooterSection title={footerItems.Download.title} image={footerItems.Download.images} />
+              <FooterSection
+                title={footerItems.Download.title}
+                image={footerItems.Download.images}
+              />
             </Grid>
           </Grid>
         </Box>{" "}

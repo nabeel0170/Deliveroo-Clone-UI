@@ -33,7 +33,11 @@ const OrderOptions: React.FC = () => {
           }}
           href="/"
         >
-          <img src="./icons/delivery.png" style={{ height: "24px", marginRight: "10px" }} alt="Delivery" />
+          <img
+            src="./icons/delivery.png"
+            style={{ height: "24px", marginRight: "10px" }}
+            alt="Delivery"
+          />
           Deliver from 11:00 - 11:30
           <span style={{ color: "#00ccbc", marginLeft: "10px" }}>Change</span>
         </Link>
@@ -45,7 +49,10 @@ const OrderOptions: React.FC = () => {
               marginTop: "10px",
             }}
           >
-            <PrimaryButton name={"Start Group Order"} Icon={PeopleAltOutlinedIcon} />
+            <PrimaryButton
+              name={"Start Group Order"}
+              Icon={PeopleAltOutlinedIcon}
+            />
           </Box>
         )}
       </Box>

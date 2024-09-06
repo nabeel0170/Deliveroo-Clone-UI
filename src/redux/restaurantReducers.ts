@@ -7,16 +7,20 @@ export const fetchRestaurantDetails = createAsyncThunk(
   "menu/fetchRestaurantDetails",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:8000/api/restaurant/restaurantDetails", {
-        headers: {
-          "api-key": apiKey,
+      const response = await axios.get(
+        "http://localhost:8000/api/restaurant/restaurantDetails",
+        {
+          headers: {
+            "api-key": apiKey,
+          },
         },
-      });
+      );
       // Return data if response is successful
       return response.data as RestauranDetailsType;
     } catch (error) {
-      const errorMessage = (error as Error).message || "Cannot fetch data right now";
+      const errorMessage =
+        (error as Error).message || "Cannot fetch data right now";
       return rejectWithValue(errorMessage);
     }
-  }
+  },
 );

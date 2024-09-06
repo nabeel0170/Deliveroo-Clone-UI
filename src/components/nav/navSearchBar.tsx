@@ -70,7 +70,10 @@ const NavSearchBar: React.FC = () => {
           <SearchIconWrapper>
             <SearchIcon sx={{ color: "#abadad" }} />
           </SearchIconWrapper>
-          <StyledInputBase placeholder="Search Tossed - St Martin's Lane" inputProps={{ "aria-label": "search" }} />
+          <StyledInputBase
+            placeholder="Search Tossed - St Martin's Lane"
+            inputProps={{ "aria-label": "search" }}
+          />
         </Search>
       ) : (
         <Button

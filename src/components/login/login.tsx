@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { Box, Divider, TextField, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Divider,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import theme from "../../theme";
 import axios from "axios";
 import PasswordStrengthBar from "react-password-strength-bar";
@@ -19,7 +25,8 @@ const APIKEY = process.env.REACT_APP_API_KEY;
 
 const LoginForm: React.FC = () => {
   const screenSizeUpSm = useMediaQuery(theme.breakpoints.up("sm"));
-  const [signInWithEmailSelected, setSignInWithEmailSelected] = useState<boolean>(false);
+  const [signInWithEmailSelected, setSignInWithEmailSelected] =
+    useState<boolean>(false);
   const [continueButtonState, setContinueButtonState] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
@@ -28,7 +35,8 @@ const LoginForm: React.FC = () => {
   const [passwordHelperText, setPasswordHelperText] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [newRepeatedPassword, setNewRepeatedPassword] = useState<string>("");
-  const [repeatedPasswordHelperText, setRepeatedPasswordHelperText] = useState<string>("");
+  const [repeatedPasswordHelperText, setRepeatedPasswordHelperText] =
+    useState<string>("");
   const [emailAvailability, setEmailAvailability] = useState<boolean>(false);
   const [signUpUser, setSignUpUser] = useState<boolean>(false);
   const [loginUserState, setloginUserState] = useState<boolean>(false);
@@ -55,7 +63,11 @@ const LoginForm: React.FC = () => {
     const isNewRepeatedPasswordValid = newPassword === newRepeatedPassword;
     const isContactNumberValid = contactNumberPattern.test(contactNumber);
     const allValid =
-      isEmailValid && isNameValid && isNewPasswordValid && isNewRepeatedPasswordValid && isContactNumberValid;
+      isEmailValid &&
+      isNameValid &&
+      isNewPasswordValid &&
+      isNewRepeatedPasswordValid &&
+      isContactNumberValid;
     IsTrue = allValid;
     if (!isEmailValid) {
       setEmailHelperText("Invalid Email");
@@ -94,7 +106,7 @@ const LoginForm: React.FC = () => {
           headers: {
             "api-key": APIKEY,
           },
-        }
+        },
       );
       const { success } = await response.data;
       if (success === true) {
@@ -115,7 +127,10 @@ const LoginForm: React.FC = () => {
   const loginUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await verifyEmail();
-    const encryptedPassword = CryptoJS.AES.encrypt(password, secretEncryptionKey).toString();
+    const encryptedPassword = CryptoJS.AES.encrypt(
+      password,
+      secretEncryptionKey,
+    ).toString();
     if (email && password) {
       try {
         const response = await axios.post(
@@ -128,7 +143,7 @@ const LoginForm: React.FC = () => {
             headers: {
               "api-key": APIKEY,
             },
-          }
+          },
         );
         if (response.data.success === false) {
           setPasswordHelperText("Invalid Password or Email");
@@ -155,12 +170,18 @@ const LoginForm: React.FC = () => {
       console.log(hashedPassword);
       const response = await axios.post(
         "http://localhost:8000/api/user/registerUser",
-        { email: email, name: name, contactNumber: contactNumber, NewPassword: hashedPassword, salt: salt },
+        {
+          email: email,
+          name: name,
+          contactNumber: contactNumber,
+          NewPassword: hashedPassword,
+          salt: salt,
+        },
         {
           headers: {
             "api-key": APIKEY,
           },
-        }
+        },
       );
       const result = await response.data.success;
       if (result === true) {
@@ -220,7 +241,9 @@ const LoginForm: React.FC = () => {
     >
       <form onSubmit={signUpUser ? registerUser : loginUser}>
         <Box sx={{ padding: "24px" }}>
-          <Typography sx={{ fontSize: "22px", fontWeight: "bold", paddingBottom: "20px" }}>
+          <Typography
+            sx={{ fontSize: "22px", fontWeight: "bold", paddingBottom: "20px" }}
+          >
             Sign up or log in
           </Typography>
           {!signInWithEmailSelected ? (
@@ -228,11 +251,18 @@ const LoginForm: React.FC = () => {
               <Divider textAlign="center">
                 <Typography variant="body2">or</Typography>
               </Divider>
-              <LoginPrimaryButton onClick={handleSignInWithEmail} name={"Continue with email"} />
+              <LoginPrimaryButton
+                onClick={handleSignInWithEmail}
+                name={"Continue with email"}
+              />
             </Box>
           ) : (
             <Box>
-              <EmailField email={email} onChange={handleEmailChange} helperText={emaiLHelperText} />
+              <EmailField
+                email={email}
+                onChange={handleEmailChange}
+                helperText={emaiLHelperText}
+              />
               {emailAvailability && (
                 <PasswordField
                   label="Password"
@@ -255,21 +285,29 @@ const LoginForm: React.FC = () => {
                     label="Contact No"
                     placeholder="Contact No"
                     value={contactNumber}
-                    onChange={(event) => setContactNumber(event.currentTarget.value)}
+                    onChange={(event) =>
+                      setContactNumber(event.currentTarget.value)
+                    }
                     type="number"
                     inputProps={{ maxLength: 12, autoComplete: "tel" }}
                     helperText={contactHelperText}
                   />
                   <PasswordField
                     label="New Password"
-                    onChange={(event) => setNewPassword(event.currentTarget.value)}
+                    onChange={(event) =>
+                      setNewPassword(event.currentTarget.value)
+                    }
                     value={newPassword}
                   />
-                  {newPassword !== "" && <PasswordStrengthBar password={newPassword} minLength={8} />}
+                  {newPassword !== "" && (
+                    <PasswordStrengthBar password={newPassword} minLength={8} />
+                  )}
                   <PasswordField
                     label="Repeat Password"
                     value={newRepeatedPassword}
-                    onChange={(event) => setNewRepeatedPassword(event.currentTarget.value)}
+                    onChange={(event) =>
+                      setNewRepeatedPassword(event.currentTarget.value)
+                    }
                     helperText={repeatedPasswordHelperText}
                   />
                 </>

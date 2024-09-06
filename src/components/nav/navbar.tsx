@@ -38,6 +38,7 @@ const NavBar: React.FC = () => {
           height: screenSizeUpSm ? "73px" : "56px ",
           boxSizing: "border-box",
           padding: "0 64px",
+          zIndex: 1100,
         }}
       >
         <Toolbar
@@ -49,7 +50,11 @@ const NavBar: React.FC = () => {
           disableGutters={false}
         >
           <a href="/" style={{ height: "32px", width: "121px" }}>
-            <img src="./logo/deliveroo-logo.png" alt="Deliveroo Logo" style={{ height: "32px", width: "121px" }} />
+            <img
+              src="./logo/deliveroo-logo.png"
+              alt="Deliveroo Logo"
+              style={{ height: "32px", width: "121px" }}
+            />
           </a>
 
           <Box
@@ -64,13 +69,25 @@ const NavBar: React.FC = () => {
           </Box>
           <Toolbar sx={{ gap: 1 }} disableGutters={true}>
             {screenSizeUpMd && isLoggedIn === false && (
-              <PrimaryButton name={"Sign up or log in"} Icon={HomeIcon} onClick={navigateToLogin} />
+              <PrimaryButton
+                name={"Sign up or log in"}
+                Icon={HomeIcon}
+                onClick={navigateToLogin}
+              />
             )}
             {screenSizeUpMd && isLoggedIn === true && (
-              <PrimaryButton name={"Logout"} Icon={LogoutIcon} onClick={logOutUser} />
+              <PrimaryButton
+                name={"Logout"}
+                Icon={LogoutIcon}
+                onClick={logOutUser}
+              />
             )}
             {screenSizeUpSm ? (
-              <PrimaryButton name={"Account"} Icon={PersonOutlineIcon} onClick={navigateToLogin} />
+              <PrimaryButton
+                name={"Account"}
+                Icon={PersonOutlineIcon}
+                onClick={navigateToLogin}
+              />
             ) : (
               <PrimaryButton Icon={PersonOutlineIcon} />
             )}

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { fetchRestaurantDetails } from "../restaurantReducers";
 
@@ -31,9 +31,12 @@ export const menuSlice = createSlice({
   initialState: RestauranDetailsInitialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchRestaurantDetails.fulfilled, (state, action: PayloadAction<RestauranDetailsType>) => {
-      state.details = action.payload.details;
-    });
+    builder.addCase(
+      fetchRestaurantDetails.fulfilled,
+      (state, action: PayloadAction<RestauranDetailsType>) => {
+        state.details = action.payload.details;
+      },
+    );
   },
 });
 

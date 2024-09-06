@@ -10,7 +10,14 @@ interface ButtonProps {
   variant?: MuiButtonProps["variant"];
 }
 
-const LoginPrimaryButton: React.FC<ButtonProps> = ({ onClick, name, disabled, type, sx, variant }) => {
+const LoginPrimaryButton: React.FC<ButtonProps> = ({
+  onClick,
+  name,
+  disabled,
+  type,
+  sx,
+  variant,
+}) => {
   return (
     <Button
       onClick={onClick}

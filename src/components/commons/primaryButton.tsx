@@ -3,11 +3,15 @@ import { SvgIconComponent } from "@mui/icons-material";
 
 interface PrimaryButtonProps {
   name?: string;
-  Icon: SvgIconComponent;
+  Icon?: SvgIconComponent;
   onClick?: () => void;
 }
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({ name, Icon, onClick }) => {
+const PrimaryButton: React.FC<PrimaryButtonProps> = ({
+  name,
+  Icon,
+  onClick,
+}) => {
   return (
     <Button
       variant="contained"
@@ -31,7 +35,9 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ name, Icon, onClick }) =>
       }}
       onClick={onClick}
     >
-      <Icon sx={{ fontSize: "18px", color: "#00ccbc", padding: "4px" }} />
+      {Icon && (
+        <Icon sx={{ fontSize: "18px", color: "#00ccbc", padding: "4px" }} />
+      )}
       {name && name}
     </Button>
   );

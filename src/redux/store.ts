@@ -8,7 +8,11 @@ export const initializeStore = () => {
     const savedState = sessionStorage.getItem("Main_State");
     if (savedState) {
       const availableState = JSON.parse(savedState);
-      if (availableState.user && availableState.user.expiry && Date.now() > availableState.user.expiry) {
+      if (
+        availableState.user &&
+        availableState.user.expiry &&
+        Date.now() > availableState.user.expiry
+      ) {
         initialState = { user: { LoggedIn: false, expiry: null } };
       } else {
         initialState = availableState;

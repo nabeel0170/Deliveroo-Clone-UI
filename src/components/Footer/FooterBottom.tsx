@@ -18,7 +18,9 @@ const FooterBottomRow: React.FC = () => {
         <FooterIconButton iconSrc={"./icons/instagram.png"} />
       </Box>
       <Box>
-        <Typography sx={{ fontSize: "0.75rem", color: "#585c5c" }}>© 2024 Deliveroo</Typography>
+        <Typography sx={{ fontSize: "0.75rem", color: "#585c5c" }}>
+          © 2024 Deliveroo
+        </Typography>
       </Box>
     </Box>
   );
