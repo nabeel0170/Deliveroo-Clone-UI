@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Typography, Box, Grid } from "@mui/material";
+import { Typography, Box, Grid, useMediaQuery } from "@mui/material";
 import ScrollButton from "./scrollButton";
-import Item from "./item";
+import PopularFoodCard from "./popularItemCard";
+import theme from "../../theme";
 
 const ItemSection: React.FC = () => {
   const gridRef = useRef<HTMLDivElement>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(true);
+  const screenSizeDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   const scrollLeft = () => {
     if (gridRef.current) {
@@ -41,12 +43,84 @@ const ItemSection: React.FC = () => {
     };
   }, []);
 
+  // Sample data for PopularFoodCard
+  const foodItems = [
+    {
+      image: "https://via.placeholder.com/150",
+      name: "Pizza",
+      calories: 300,
+      price: 9.99,
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      name: "Burger",
+      calories: 500,
+      price: 11.99,
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      name: "Sushi",
+      calories: 200,
+      price: 12.99,
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      name: "Pasta",
+      calories: 400,
+      price: 10.99,
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      name: "Pasta",
+      calories: 400,
+      price: 10.99,
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      name: "Pasta",
+      calories: 400,
+      price: 10.99,
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      name: "Pasta",
+      calories: 400,
+      price: 10.99,
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      name: "Pasta",
+      calories: 400,
+      price: 10.99,
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      name: "Pasta",
+      calories: 400,
+      price: 10.99,
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      name: "Pasta",
+      calories: 400,
+      price: 10.99,
+    },
+    // Add more items as needed
+  ];
+
   return (
     <Box sx={{ marginRight: "32px" }}>
       <Typography variant="body1">
         Adults need around 2000 kcal a day
       </Typography>
-      <Box sx={{ position: "relative", display: "flex", alignItems: "center" }}>
+      <Box
+        sx={{
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          marginTop: 5,
+        }}
+      >
         {/* Scroll Buttons */}
         {showLeftButton && (
           <ScrollButton direction="left" onClick={scrollLeft} />
@@ -57,9 +131,9 @@ const ItemSection: React.FC = () => {
             overflowX: "auto",
             overflowY: "hidden",
             width: "100%",
-            scrollBehavior: "smooth", // Smooth scroll behavior
+            scrollBehavior: "smooth",
             "&::-webkit-scrollbar": {
-              display: "none", // Hide scrollbar for Chrome, Safari, and WebKit browsers
+              display: screenSizeDownSm ? "" : "none", // Hide scrollbar for larger screens, show for smaller
             },
           }}
           ref={gridRef}
@@ -70,10 +144,18 @@ const ItemSection: React.FC = () => {
             sx={{
               display: "flex",
               flexWrap: "nowrap",
+              marginBottom: "5px",
             }}
           >
-            {[...Array(10)].map((_, x) => (
-              <Item key={x} content={`Popular Item ${x + 1}`} />
+            {foodItems.map((item, index) => (
+              <Grid item key={index} sx={{ p: 1 }}>
+                <PopularFoodCard
+                  image={item.image}
+                  name={item.name}
+                  calories={item.calories}
+                  price={item.price}
+                />
+              </Grid>
             ))}
           </Grid>
         </Box>

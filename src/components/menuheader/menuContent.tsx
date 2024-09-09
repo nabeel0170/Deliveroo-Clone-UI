@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, useMediaQuery } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/material";
 import HeaderSection from "./headerSection";
 import ContentSection from "./contentSection";
 import theme from "../../theme";
@@ -10,6 +10,7 @@ const MenuContent: React.FC = () => {
   return (
     <Grid
       container
+      maxWidth="xl"
       direction={isDownSm ? "column" : "row"}
       sx={{
         marginTop: isDownSm ? 0 : "10px",
@@ -20,6 +21,7 @@ const MenuContent: React.FC = () => {
         paddingTop: {
           xs: "56px",
         },
+        margin: "auto",
       }}
     >
       <Grid item xs={4}>
@@ -32,5 +34,5 @@ const MenuContent: React.FC = () => {
     </Grid>
   );
 };
-
+// Container maxWidth="xl" sx={{ minWidth: "260px" }} disableGutters={true}
 export default MenuContent;
