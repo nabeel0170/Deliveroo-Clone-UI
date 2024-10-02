@@ -1,13 +1,13 @@
-import { Button, SxProps } from "@mui/material";
-import { ButtonProps as MuiButtonProps } from "@mui/material/Button";
+import { Button, SxProps } from '@mui/material';
+import { ButtonProps as MuiButtonProps } from '@mui/material/Button';
 
 interface ButtonProps {
   name?: string;
   onClick?: () => void;
-  type?: "submit";
+  type?: 'submit' | 'button';
   disabled?: boolean;
   sx?: SxProps;
-  variant?: MuiButtonProps["variant"];
+  variant?: MuiButtonProps['variant'];
 }
 
 const LoginPrimaryButton: React.FC<ButtonProps> = ({
@@ -22,17 +22,18 @@ const LoginPrimaryButton: React.FC<ButtonProps> = ({
     <Button
       onClick={onClick}
       sx={{
-        background: "#00ccbc",
-        color: "white",
-        fontWeight: "bold",
-        width: "100%",
-        marginBottom: "5px",
-        padding: "12px 24px",
-        "&:hover": {
-          backgroundColor: "#00b8a9",
+        background: '#00ccbc',
+        color: 'white',
+        fontWeight: 'bold',
+        width: '100%',
+
+        marginTop: '10px',
+        padding: '12px 24px',
+        '&:hover': {
+          backgroundColor: '#00b8a9',
         },
-        "&:active, &:focus": {
-          backgroundColor: "#00ccbc",
+        '&:active, &:focus': {
+          backgroundColor: '#00ccbc',
         },
         ...sx,
       }}

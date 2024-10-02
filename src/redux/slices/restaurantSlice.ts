@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { fetchRestaurantDetails } from "../restaurantReducers";
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { fetchRestaurantDetails } from '../restaurantReducers';
 
 export interface RestauranDetailsType {
   details: {
@@ -16,8 +16,8 @@ export interface RestauranDetailsType {
 
 export const RestauranDetailsInitialState: RestauranDetailsType = {
   details: {
-    itemImgSrc: "",
-    restaurantName: "",
+    itemImgSrc: '',
+    restaurantName: '',
     foodTypes: [],
     distance: null,
     openTime: null,
@@ -27,7 +27,7 @@ export const RestauranDetailsInitialState: RestauranDetailsType = {
 };
 
 export const menuSlice = createSlice({
-  name: "menu",
+  name: 'menu',
   initialState: RestauranDetailsInitialState,
   reducers: {},
   extraReducers: (builder) => {

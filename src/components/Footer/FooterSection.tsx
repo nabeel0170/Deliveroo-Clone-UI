@@ -1,6 +1,6 @@
-import React from "react";
-import { Box, Typography, useTheme } from "@mui/material";
-import styled from "styled-components";
+import React from 'react';
+import { Box, Typography, useTheme } from '@mui/material';
+import styled from 'styled-components';
 
 interface FooterSectionProps {
   title: string;
@@ -25,22 +25,22 @@ const StyledUl = styled.ul`
 `;
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  background: "#404a4a",
-  maxWidth: "290px",
-  minWidth: "190px",
+  display: 'flex',
+  flexDirection: 'column',
+  background: '#404a4a',
+  maxWidth: '290px',
+  minWidth: '190px',
   flexGrow: 1,
-  padding: "10px",
-  boxSizing: "border-box",
-  height: "100%",
-  [theme.breakpoints.down("md")]: {
-    maxWidth: "none",
+  padding: '10px',
+  boxSizing: 'border-box',
+  height: '100%',
+  [theme.breakpoints.down('md')]: {
+    maxWidth: 'none',
   },
-  [theme.breakpoints.down("sm")]: {
-    maxWidth: "none",
-    minHeight: "none",
-    maxHeight: "fit-content",
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: 'none',
+    minHeight: 'none',
+    maxHeight: 'fit-content',
   },
 }));
 
@@ -54,7 +54,7 @@ const FooterSection: React.FC<FooterSectionProps> = ({
   return (
     <StyledBox theme={theme}>
       <Box>
-        <Typography color="white" sx={{ fontSize: "18px", fontWeight: "bold" }}>
+        <Typography color="white" sx={{ fontSize: '18px', fontWeight: 'bold' }}>
           {title}
         </Typography>
         {listItem && listItem.length > 0 && (
@@ -69,7 +69,7 @@ const FooterSection: React.FC<FooterSectionProps> = ({
         {image && image.length > 0 && (
           <ul
             style={{
-              listStyle: "none",
+              listStyle: 'none',
               padding: 0,
               margin: 0,
             }}
@@ -78,20 +78,20 @@ const FooterSection: React.FC<FooterSectionProps> = ({
               <a href="/" key={index}>
                 <Box
                   sx={{
-                    display: "flex",
-                    maxWidth: "140px",
-                    maxHeight: "40px",
-                    marginBottom: "10px",
-                    boxSizing: "border-box",
+                    display: 'flex',
+                    maxWidth: '140px',
+                    maxHeight: '40px',
+                    marginBottom: '10px',
+                    boxSizing: 'border-box',
                   }}
                 >
                   <img
                     src={src}
                     alt={title}
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain",
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
                     }}
                   />
                 </Box>

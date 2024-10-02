@@ -1,8 +1,0 @@
-{
-  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
-  "plugins": ["prettier"],
-  "rules": {
-    "prettier/prettier": "error",
-    "no-trailing-spaces": "error"
-  }
-}

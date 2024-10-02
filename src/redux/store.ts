@@ -1,11 +1,11 @@
-import { combineReducers, configureStore, Middleware } from "@reduxjs/toolkit";
-import menuReducer from "./slices/restaurantSlice";
-import userReducer from "./slices/userSlice";
+import { combineReducers, configureStore, Middleware } from '@reduxjs/toolkit';
+import menuReducer from './slices/restaurantSlice';
+import userReducer from './slices/userSlice';
 
 export const initializeStore = () => {
   let initialState = {};
   try {
-    const savedState = sessionStorage.getItem("Main_State");
+    const savedState = sessionStorage.getItem('Main_State');
     if (savedState) {
       const availableState = JSON.parse(savedState);
       if (
@@ -19,12 +19,12 @@ export const initializeStore = () => {
       }
     }
   } catch (error) {
-    console.log("getError", error);
+    console.log('getError', error);
   }
   const saver: Middleware = (store) => (next) => (action) => {
     const result = next(action);
     const stateToSave = store.getState();
-    sessionStorage.setItem("Main_State", JSON.stringify(stateToSave));
+    sessionStorage.setItem('Main_State', JSON.stringify(stateToSave));
     return result;
   };
   const rootReducer = combineReducers({

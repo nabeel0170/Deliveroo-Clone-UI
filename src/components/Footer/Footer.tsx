@@ -1,26 +1,25 @@
-import { Box, Grid } from "@mui/material";
-import FooterSection from "./FooterSection";
-import { footerItems } from "./footerItems";
-import FooterBottomRow from "./FooterBottom";
+import { Box, Grid } from '@mui/material';
+import FooterSection from './FooterSection';
+import { footerItems } from './footerItems';
+import FooterBottomRow from './FooterBottom';
 
 const Footer: React.FC = () => {
   return (
-    <Box sx={{ background: "#2e3333" }}>
+    <Box sx={{ background: '#2e3333' }}>
       <Box
         sx={{
-          padding: "24px 0 0 0",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          padding: '24px 0 0 0',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <Grid
           container
           sx={{
-            maxWidth: "1250px",
-
-            padding: "0 10px",
+            maxWidth: '1250px',
+            padding: '0 10px',
           }}
           spacing={1}
         >
@@ -49,8 +48,8 @@ const Footer: React.FC = () => {
             />
           </Grid>
         </Grid>
-      </Box>{" "}
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <FooterBottomRow />
       </Box>
     </Box>

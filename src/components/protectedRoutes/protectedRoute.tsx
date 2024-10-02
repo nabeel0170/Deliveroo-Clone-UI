@@ -1,6 +1,6 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { useAppSelector } from "../../redux/hooks";
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAppSelector } from '../../redux/hooks';
 
 type ProtectedRouteProps = {
   children: React.ReactNode;

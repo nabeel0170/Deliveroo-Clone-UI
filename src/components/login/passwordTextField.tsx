@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   TextField,
   InputAdornment,
   IconButton,
   Typography,
-} from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 interface PasswordFieldProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+  value?: string;
   helperText?: string;
   label: string;
 }
@@ -31,10 +31,10 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
       <TextField
         id="password-field"
         placeholder="Password"
-        type={showPassword ? "text" : "password"}
+        type={showPassword ? 'text' : 'password'}
         InputProps={{
           endAdornment:
-            value.length > 0 ? (
+            value && value.length > 0 ? (
               <InputAdornment position="end">
                 <IconButton onClick={handleClickShowPassword} edge="end">
                   {showPassword ? <Visibility /> : <VisibilityOff />}

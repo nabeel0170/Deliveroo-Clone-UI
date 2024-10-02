@@ -1,65 +1,79 @@
-import { Box, useMediaQuery } from "@mui/system";
+import { Box, useMediaQuery } from '@mui/system';
 
-import { Button, Typography } from "@mui/material";
-import theme from "../../theme";
+import { Button, Typography } from '@mui/material';
+import theme from '../../theme';
 
 interface BasketItems {
-  items?: string; // Adjust the type based on your actual items
+  items?: string;
 }
 
-const Basket: React.FC<BasketItems> = () =>
-  // {
-  // items
-  // }
-  {
-    const screenSizeUpMd = useMediaQuery(theme.breakpoints.up("md"));
+const Basket: React.FC<BasketItems> = () => {
+  const screenSizeUpMd = useMediaQuery(theme.breakpoints.up('md'));
 
-    if (!screenSizeUpMd) {
-      return null; // Return null when the condition is not met
-    }
+  if (!screenSizeUpMd) {
+    return null;
+  }
 
-    return (
+  return (
+    <Box
+      sx={{
+        width: '500px',
+        height: 'calc(100vh - 64px - 73px - 73px)',
+        border: '0.5px solid #dadce0',
+        position: 'sticky',
+        boxSizing: 'border-box',
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        marginTop: screenSizeUpMd ? '32px' : 0,
+        marginLeft: screenSizeUpMd ? '32px' : 0,
+        top: 160,
+        background: 'white',
+      }}
+    >
       <Box
         sx={{
-          backgroundColor: "white",
-          maxWidth: "500px",
-          minWidth: "400px",
-          maxHeight: "700px",
-          border: "0.5px solid #dadce0",
+          display: 'flex',
+          justifyContent: 'center',
+          margin: 'auto',
         }}
       >
         <Box
           sx={{
-            height: "550px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
+            justifyContent: 'center',
           }}
         >
-          <Box sx={{ color: "#dadce0" }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             <img
               src="./icons/shopping-cart.png"
               alt="Shopping Cart"
-              style={{ height: "40px" }}
+              style={{ height: '40px' }}
             />
-            <Typography>Your Basket is Empty</Typography>
+          </Box>
+          <Box>
+            <Typography variant="body2">Your Basket is Empty</Typography>
           </Box>
         </Box>
-        <Box sx={{ padding: "16px" }}>
-          <Button
-            sx={{
-              width: "90%",
-              backgroundColor: "#dadce0",
-              margin: "0 auto",
-              display: "block",
-            }}
-            disabled
-          >
-            Go to Checkout
-          </Button>
-        </Box>
       </Box>
-    );
-  };
+      <Box sx={{ display: 'flex' }}>
+        <Button
+          sx={{
+            width: '90%',
+            backgroundColor: '#dadce0',
+            margin: '16px auto',
+            display: 'block',
+          }}
+          disabled
+        >
+          Go to Checkout
+        </Button>
+      </Box>
+    </Box>
+  );
+};
 export default Basket;

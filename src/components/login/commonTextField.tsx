@@ -1,10 +1,10 @@
-import React from "react";
-import { TextField, Typography } from "@mui/material";
+import React from 'react';
+import { TextField, Typography } from '@mui/material';
 
 interface CommonTextFieldProps {
   label: string;
   placeholder: string;
-  value: string;
+  value?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   type: string;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
@@ -31,7 +31,7 @@ const CommonTextField: React.FC<CommonTextFieldProps> = ({
       inputProps={inputProps}
       helperText={helperText}
       required
-      sx={{ marginBottom: "5px" }}
+      sx={{ marginBottom: '5px' }}
     />
   </>
 );

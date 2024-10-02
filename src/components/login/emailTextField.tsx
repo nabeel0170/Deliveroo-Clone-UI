@@ -1,8 +1,8 @@
-import React from "react";
-import { TextField, Typography } from "@mui/material";
+import React from 'react';
+import { TextField, Typography } from '@mui/material';
 
 interface EmailFieldProps {
-  email: string;
+  email?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   helperText?: string;
 }
@@ -11,6 +11,7 @@ const EmailField: React.FC<EmailFieldProps> = ({
   email,
   onChange,
   helperText,
+  ...props
 }) => (
   <>
     <Typography variant="body1">Email Address</Typography>
@@ -21,9 +22,10 @@ const EmailField: React.FC<EmailFieldProps> = ({
       value={email}
       onChange={onChange}
       helperText={helperText}
+      {...props}
       type="email"
       required
-      sx={{ marginBottom: "5px" }}
+      sx={{ marginBottom: '5px' }}
     />
   </>
 );

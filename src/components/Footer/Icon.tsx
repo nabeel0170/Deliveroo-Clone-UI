@@ -1,5 +1,5 @@
-import { Icon } from "@mui/material";
-import styled from "styled-components";
+import { Icon } from '@mui/material';
+import styled from 'styled-components';
 
 interface FooterIconProps {
   iconSrc: string;
@@ -15,7 +15,7 @@ const StyledImg = styled.img`
 
 const FooterIcon: React.FC<FooterIconProps> = ({ iconSrc }) => {
   return (
-    <Icon sx={{ margin: "10px", height: "fit-content" }}>
+    <Icon sx={{ margin: '10px', height: 'fit-content' }}>
       <a href="/">
         <StyledImg src={iconSrc} alt="" />
       </a>
