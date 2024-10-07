@@ -4,14 +4,14 @@ import { Box } from '@mui/material';
 import Footer from '../components/Footer/Footer';
 import React from 'react';
 
-import LoginForm from '../components/login/login';
+import LoginActions from '../components/login/loginActions';
 
 const Login: React.FC = () => {
   return (
     <Box sx={{ minWidth: '260px' }}>
       <NavBar />
       {/* <Grid container alignItems="center" justifyContent="center"> */}
-      <LoginForm />
+      <LoginActions />
       {/* </Grid> */}
       <Footer />
     </Box>

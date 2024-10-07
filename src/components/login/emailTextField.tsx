@@ -5,6 +5,7 @@ interface EmailFieldProps {
   email?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   helperText?: string;
+  name?: string;
 }
 
 const EmailField: React.FC<EmailFieldProps> = ({

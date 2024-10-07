@@ -9,16 +9,21 @@ interface CommonTextFieldProps {
   type: string;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
   helperText?: string;
+  userName?: string;
+  name?: string;
+  contactNumber?: string;
 }
 
 const CommonTextField: React.FC<CommonTextFieldProps> = ({
   label,
   placeholder,
-  value,
+  userName,
+  name,
   onChange,
   type,
   inputProps,
   helperText,
+  contactNumber,
 }) => (
   <>
     <Typography variant="body1">{label}</Typography>
@@ -26,7 +31,8 @@ const CommonTextField: React.FC<CommonTextFieldProps> = ({
       placeholder={placeholder}
       type={type}
       fullWidth
-      value={value}
+      value={userName || contactNumber}
+      name={name}
       onChange={onChange}
       inputProps={inputProps}
       helperText={helperText}

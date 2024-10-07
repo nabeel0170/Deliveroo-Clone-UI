@@ -9,16 +9,22 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 interface PasswordFieldProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string;
+  password?: string;
   helperText?: string;
   label: string;
+  name?: string;
+  repeatedPassword?: string;
+  newPassword?: string;
 }
 
 const PasswordField: React.FC<PasswordFieldProps> = ({
   onChange,
-  value,
+  password,
   helperText,
   label,
+  repeatedPassword,
+  name,
+  newPassword,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -34,7 +40,7 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
         type={showPassword ? 'text' : 'password'}
         InputProps={{
           endAdornment:
-            value && value.length > 0 ? (
+            password && password.length > 0 ? (
               <InputAdornment position="end">
                 <IconButton onClick={handleClickShowPassword} edge="end">
                   {showPassword ? <Visibility /> : <VisibilityOff />}
@@ -46,8 +52,9 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
         onChange={onChange}
         autoComplete="password"
         required
-        value={value}
+        value={password || repeatedPassword || newPassword}
         helperText={helperText}
+        name={name}
       />
     </div>
   );

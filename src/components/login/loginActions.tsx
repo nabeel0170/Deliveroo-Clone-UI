@@ -15,43 +15,57 @@ import { setLoggedIn } from '../../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { generateSalt, hashPassword } from '../../utils/hash-helper';
 import ResetTokenInput from './resetTokenInput';
+import * as Yup from 'yup';
+import { emailValidationSchema, loginValidationSchema, signUpValidationSchema } from '../../schemas/loginSchemas';
 
 const APIKEY = process.env.REACT_APP_API_KEY;
 
-const LoginForm: React.FC = () => {
+const LoginActions: React.FC = () => {
   const screenSizeUpSm = useMediaQuery(theme.breakpoints.up('sm'));
-  const [signInWithEmailSelected, setSignInWithEmailSelected] =
-    useState<boolean>(false);
-  const [formActionMessage, setFormActionMessage] =
-    useState<string>('Sign up or log in');
+  const [signInWithEmailSelected, setSignInWithEmailSelected] = useState<boolean>(false);
+  const [formActionMessage, setFormActionMessage] = useState<string>('Sign up or log in');
   const [resetPasswordMessage, setResetPasswordMessage] = useState<string>('');
-  const [continueButtonState, setContinueButtonState] = useState<boolean>(true);
-  const [email, setEmail] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [contactNumber, setContactNumber] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [continueButtonState, setContinueButtonState] = useState<boolean>(false);
   const [passwordHelperText, setPasswordHelperText] = useState<string>('');
-  const [newPassword, setNewPassword] = useState<string>('');
-  const [newRepeatedPassword, setNewRepeatedPassword] = useState<string>('');
-  const [repeatedPasswordHelperText, setRepeatedPasswordHelperText] =
-    useState<string>('');
+  const [repeatedPasswordHelperText, setRepeatedPasswordHelperText] = useState<string>('');
   const [emailAvailability, setEmailAvailability] = useState<boolean>(false);
-  const [passwordFieldAvailability, setPasswordFieldAvailability] =
-    useState<boolean>(false);
-  const [emailFieldAvailability, setEmailFieldAvailability] =
-    useState<boolean>(true);
-  const [resetTokenInputAvailability, setResetTokenInputAvailability] =
-    useState<boolean>(false);
+  const [passwordFieldAvailability, setPasswordFieldAvailability] = useState<boolean>(false);
+  const [emailFieldAvailability, setEmailFieldAvailability] = useState<boolean>(true);
+  const [resetTokenInputAvailability, setResetTokenInputAvailability] = useState<boolean>(false);
   const [signUpUser, setSignUpUser] = useState<boolean>(false);
   const [loginUserState, setloginUserState] = useState<boolean>(false);
   const [resetPasswordState, setResetPasswordState] = useState<boolean>(false);
-  const [emaiLHelperText, setEmailHelperText] = useState<string>('');
-  const [contactHelperText, setContactHelperText] = useState<string>('');
   const [signUpDisabled, setSignUpDisabled] = useState<boolean>(false);
   const [resetButtonState, setresetButtonState] = useState<boolean>(true);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [formData, setFormData] = useState({
+    email: '',
+    name: '',
+    contactNumber: '',
+    password: '',
+    newPassword: '',
+    newRepeatedPassword: '',
+  });
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   const navigate = useNavigate();
   const secretEncryptionKey = 'your-secret-key';
+
+  const getValidationSchema = () => {
+    if (signInWithEmailSelected && !signUpUser) {
+      return emailValidationSchema;
+    }
+
+    if (signUpUser) {
+      console.log('signUpUser');
+      return signUpValidationSchema;
+    }
+
+    return loginValidationSchema;
+  };
 
   useEffect(() => {
     if (emailAvailability === true) {
@@ -60,84 +74,60 @@ const LoginForm: React.FC = () => {
   }, [emailAvailability]);
 
   useEffect(() => {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const contactNumberPattern = /^\d{12}$/;
-    const isEmailValid = emailPattern.test(email);
-    const isNameValid = name.trim().length > 0;
-    const isNewPasswordValid = newPassword.trim().length > 0;
-    const isNewRepeatedPasswordValid = newPassword === newRepeatedPassword;
-    const isContactNumberValid = contactNumberPattern.test(contactNumber);
-    const allValid =
-      isEmailValid &&
-      isNameValid &&
-      isNewPasswordValid &&
-      isNewRepeatedPasswordValid &&
-      isContactNumberValid;
-    const IsTrue = allValid;
-    if (!isEmailValid) {
-      setEmailHelperText('Invalid Email');
-    } else {
-      setEmailHelperText('');
-    }
-    if (!isContactNumberValid) {
-      setContactHelperText('Invalid Contact Number');
-    } else {
-      setContactHelperText('');
-    }
-    if (IsTrue) {
+    if (errors) {
       setSignUpDisabled(false);
     } else {
       setSignUpDisabled(true);
     }
-  }, [email, name, password, newPassword, newRepeatedPassword, contactNumber]);
+  }, [errors]);
+
   const handleSignInWithEmail = () => {
     setSignInWithEmailSelected(true);
   };
 
   useEffect(() => {
-    if (newRepeatedPassword !== newPassword) {
+    if (formData.newRepeatedPassword !== formData.newPassword) {
       setRepeatedPasswordHelperText('Passwords do not match');
     } else {
       setRepeatedPasswordHelperText('');
     }
-  }, [newRepeatedPassword]);
+  }, [formData.newRepeatedPassword]);
 
   const verifyEmail = async () => {
     try {
       const response = await axios.post(
         'http://192.168.1.6:8000/api/user/verifyEmail',
-        { email: email },
+        { email: formData.email },
         {
           headers: {
             'api-key': APIKEY,
           },
         },
       );
+      console.log(response.data);
       const { success } = await response.data;
       if (success === true) {
         setEmailAvailability(true);
         setPasswordFieldAvailability(true);
         setSignUpUser(false);
         setloginUserState(true);
-      } else {
-        setEmailAvailability(false);
-        setPasswordFieldAvailability(false);
-        setSignUpUser(true);
-        setloginUserState(false);
       }
     } catch (error) {
       console.log('Error', error);
+      setEmailAvailability(false);
+      setPasswordFieldAvailability(false);
+      setSignUpUser(true);
+      setloginUserState(false);
     }
   };
 
   const dispatch = useDispatch();
   const loginUser = async () => {
+    const { email, password } = formData;
     await verifyEmail();
-    const encryptedPassword = CryptoJS.AES.encrypt(
-      password,
-      secretEncryptionKey,
-    ).toString();
+    const encryptedPassword = CryptoJS.AES.encrypt(password, secretEncryptionKey).toString();
     if (email && password) {
+      console.log('trying');
       try {
         const response = await axios.post(
           'http://192.168.1.6:8000/api/user/loginUser',
@@ -172,15 +162,15 @@ const LoginForm: React.FC = () => {
     await verifyEmail();
     try {
       const salt = generateSalt();
-      const hashedPassword = hashPassword(password, salt);
+      const hashedPassword = hashPassword(formData.newPassword, salt);
       console.log(hashedPassword);
       const response = await axios.post(
         'http://192.168.1.6:8000/api/user/registerUser',
         {
-          email: email,
-          name: name,
-          contactNumber: contactNumber,
-          NewPassword: hashedPassword,
+          email: formData.email,
+          name: formData.name,
+          contactNumber: formData.contactNumber,
+          password: hashedPassword,
           salt: salt,
         },
         {
@@ -192,15 +182,20 @@ const LoginForm: React.FC = () => {
       const result = await response.data.success;
       if (result === true) {
         setSignUpUser(false);
-        setName('');
-        setContactNumber('');
-        setNewPassword('');
-        setNewRepeatedPassword('');
-        setContactHelperText('');
-        setPassword('');
-        setPasswordHelperText('');
+        setFormData({
+          email: '',
+          name: '',
+          contactNumber: '',
+          password: '',
+          newPassword: '',
+          newRepeatedPassword: '',
+        });
         setloginUserState(true);
         setEmailAvailability(true);
+      } else {
+        setErrors({
+          email: 'Email already taken',
+        });
       }
     } catch (error) {
       console.log(error);
@@ -211,9 +206,7 @@ const LoginForm: React.FC = () => {
     setloginUserState(false);
     setPasswordFieldAvailability(false);
     setFormActionMessage('Reset Your Password');
-    setResetPasswordMessage(
-      'To reset your password, we need to send you an email.',
-    );
+    setResetPasswordMessage('To reset your password, we need to send you an email.');
     setResetPasswordState(true);
     setContinueButtonState((prev) => !prev);
   };
@@ -225,7 +218,7 @@ const LoginForm: React.FC = () => {
       const response = await axios.post(
         'http://192.168.1.6:8000/api/user/requestResetUserPassword',
         {
-          email,
+          email: formData.email,
         },
         {
           headers: {
@@ -248,43 +241,58 @@ const LoginForm: React.FC = () => {
     }
   };
 
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      await getValidationSchema().validate(formData, { abortEarly: false });
+
+      setErrors({});
+
+      if (resetPasswordState) {
+        await resetPassword();
+      } else if (signUpUser) {
+        console.log('error free');
+        await registerUser();
+      } else {
+        await loginUser();
+      }
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        const validationErrors: { [key: string]: string } = {};
+        err.inner.forEach((error) => {
+          if (error.path) {
+            validationErrors[error.path] = error.message;
+          }
+        });
+        setErrors(validationErrors);
+        console.log('Validation Errors: ', validationErrors);
+      }
+    }
   };
 
-  useEffect(() => {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    switch (true) {
-      case email.length === 0:
-        setEmailHelperText('');
-        break;
-      case emailPattern.test(email):
-        setEmailHelperText('');
-        break;
-      default:
-        setEmailHelperText('Invalid Email');
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
 
-        break;
-    }
-  }, [handleEmailChange]);
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
 
-  useEffect(() => {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (email && emailPattern.test(email)) {
-      setContinueButtonState(false);
-    } else {
-      setContinueButtonState(true);
-    }
-  }, [email]);
+    try {
+      await getValidationSchema().validateAt(name, {
+        ...formData,
+        [name]: value,
+      });
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+    } catch (error) {
+      const yupError = error as Yup.ValidationError;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (resetPasswordState) {
-      resetPassword();
-    } else if (signUpUser) {
-      registerUser();
-    } else {
-      loginUser();
+      if (yupError instanceof Yup.ValidationError) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: yupError.message,
+        }));
+      } else {
+        console.error('Unexpected error during validation:', error);
+      }
     }
   };
 
@@ -302,83 +310,80 @@ const LoginForm: React.FC = () => {
     >
       <form onSubmit={handleSubmit}>
         <Box sx={{ padding: '24px' }}>
-          <Typography
-            sx={{ fontSize: '22px', fontWeight: 'bold', paddingBottom: '20px' }}
-          >
+          <Typography sx={{ fontSize: '22px', fontWeight: 'bold', paddingBottom: '20px' }}>
             {formActionMessage}
           </Typography>
-          <Typography sx={{ fontSize: '16px', paddingBottom: '20px' }}>
-            {resetPasswordMessage}
-          </Typography>
+          <Typography sx={{ fontSize: '16px', paddingBottom: '20px' }}>{resetPasswordMessage}</Typography>
+
           {resetTokenInputAvailability && <ResetTokenInput />}
+
           {!signInWithEmailSelected ? (
             <Box>
               <Divider textAlign="center">
                 <Typography variant="body2">or</Typography>
               </Divider>
-              <LoginPrimaryButton
-                onClick={handleSignInWithEmail}
-                name={'Continue with email'}
-              />
+              <LoginPrimaryButton onClick={handleSignInWithEmail} name={'Continue with email'} />
             </Box>
           ) : (
             <Box>
               {emailFieldAvailability && (
-                <EmailField
-                  email={email}
-                  onChange={handleEmailChange}
-                  helperText={emaiLHelperText}
-                />
+                <EmailField email={formData.email} onChange={handleChange} name="email" helperText={errors.email} />
               )}
+
               {passwordFieldAvailability && (
                 <PasswordField
                   label="Password"
-                  value={password}
-                  onChange={(event) => setPassword(event.currentTarget.value)}
-                  helperText={passwordHelperText}
+                  password={formData.password}
+                  onChange={handleChange}
+                  name="password"
+                  helperText={errors.password || passwordHelperText}
                 />
               )}
+
               {signUpUser && (
                 <>
                   <CommonTextField
                     label="Full Name"
                     placeholder="Full Name"
-                    value={name}
-                    onChange={(event) => setName(event.currentTarget.value)}
+                    onChange={handleChange}
+                    name="name"
+                    userName={formData.name}
                     type="text"
                     inputProps={{ autoComplete: 'name' }}
+                    helperText={errors.name}
                   />
+
                   <CommonTextField
                     label="Contact No"
                     placeholder="Contact No"
-                    value={contactNumber}
-                    onChange={(event) =>
-                      setContactNumber(event.currentTarget.value)
-                    }
+                    contactNumber={formData.contactNumber}
+                    onChange={handleChange}
+                    name="contactNumber"
                     type="number"
                     inputProps={{ maxLength: 12, autoComplete: 'tel' }}
-                    helperText={contactHelperText}
+                    helperText={errors.contactNumber}
                   />
+
                   <PasswordField
                     label="New Password"
-                    onChange={(event) =>
-                      setNewPassword(event.currentTarget.value)
-                    }
-                    value={newPassword}
+                    newPassword={formData.newPassword}
+                    onChange={handleChange}
+                    name="newPassword"
+                    helperText={errors.newPassword}
                   />
-                  {newPassword !== '' && (
-                    <PasswordStrengthBar password={newPassword} minLength={8} />
-                  )}
+
+                  {formData.newPassword !== '' && <PasswordStrengthBar password={formData.newPassword} minLength={8} />}
+
                   <PasswordField
                     label="Repeat Password"
-                    value={newRepeatedPassword}
-                    onChange={(event) =>
-                      setNewRepeatedPassword(event.currentTarget.value)
-                    }
-                    helperText={repeatedPasswordHelperText}
+                    repeatedPassword={formData.newRepeatedPassword}
+                    onChange={handleChange}
+                    name="newRepeatedPassword"
+                    helperText={errors.newRepeatedPassword || repeatedPasswordHelperText}
                   />
                 </>
               )}
+
               <LoginButtons
                 signUpUser={signUpUser}
                 loginUserState={loginUserState}
@@ -395,4 +400,4 @@ const LoginForm: React.FC = () => {
   );
 };
 
-export default LoginForm;
+export default LoginActions;
